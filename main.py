@@ -3,22 +3,22 @@ def insertar_eventos():
     print("Insertar")
     
 
-def eliminar_registros():
-    # Funcion que elimina registros
+def eliminar_eventos():
+    # Funcion que elimina eventos
     print("Eliminar")
     
 
-def modificar_registros():
-    # Funcion que modifica registros
+def modificar_eventos():
+    # Funcion que modifica eventos
     print("Modificar")
 
-def ver_registros():
-    # Funcion para ver registros en memoria
+def ver_eventos():
+    # Funcion para ver eventos en memoria
     print("Eventos en memoria")
 
 
-def menu():
-    # el usuario debera elegir la accion que desee (Santiago Goldstein).
+def main():
+    # el usuario debera elegir la accion que desee.
     print("""
     Bienvenido a EvenPLus tu app para gestionar tareas y eventos.
     Elija la accion que desee:
@@ -37,15 +37,15 @@ def menu():
 
         elif crud == 2:
             # def eliminar
-            eliminar_registros()
+            eliminar_eventos()
 
         elif crud == 3:
             # def modificar
-            modificar_registros()
+            modificar_eventos()
             
         elif crud == 4:
             # def ver registros
-            ver_registros()
+            ver_eventos()
         
         elif crud == 5:
                 print("Saliendo de la aplicación. ¡Gracias por usar EvenPlus!")
@@ -53,4 +53,4 @@ def menu():
         else:
             print("¡Error!, Por favor ingrese un numero del 1 al 5 ")
 
-menu()
+main()
