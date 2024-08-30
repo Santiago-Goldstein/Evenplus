@@ -34,7 +34,6 @@ def eliminar_eventos():
         print("| ¡No hay eventos que eliminar! |")
         print("---------------------------------")
     
-
 def modificar_eventos():
     # Funcion que modifica eventos
     print("Modificar")
@@ -50,10 +49,11 @@ def ver_eventos_pendientes():
         print("| ¡No hay eventos registrados! |")
         print("--------------------------------")
 
-
 def main():
     # el usuario debera elegir la accion que desee.
-    print("""
+    crud = 0
+    while crud != 5:
+        print("""
     Bienvenido a EvenPLus tu app para gestionar tareas y eventos.
     Elija la accion que desee:
     (1) Insertar un Evento
@@ -62,8 +62,7 @@ def main():
     (4) Ver Eventos guardados
     (5) Salir de la App
     """)
-    crud = 0
-    while crud != 5:
+        
         crud = int(input("Ingrese el numero de la accion que desea realizar: "))
         if crud == 1:
             # def insertar
