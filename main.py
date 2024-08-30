@@ -1,20 +1,54 @@
+eventos = []
+
 def insertar_eventos():
     # Funcion que inserta eventos.
-    print("Insertar")
+    evento_usuario = True
+    while evento_usuario:
+        print("Ingrese un nuevo Evento:")
+        evento_usuario = input("")
+        eventos.append(evento_usuario)
+        print("---------------------------------")
+        print("| Evento Guardado ¡Exitosamente!|")
+        print("---------------------------------\n")
+
+        print("Desea seguir agregando eventos? escriba 'si' o 'no'")
+        sigue = input("").lower()
+
+        if sigue != "si":
+            evento_usuario = False
     
 
 def eliminar_eventos():
-    # Funcion que elimina eventos
-    print("Eliminar")
+    # Funcion que elimina registros
+    if len(eventos) != 0:
+        print(f"Eventos que puedes eliminar:")
+        for id, evento in enumerate (eventos):
+            print(f"{id + 1}. {evento}")
+
+        print("\nIngrese el numero de evento a eliminar:")
+        seleccion = int(input()) -1 # convierte en indice la seleccion con -1
+        evento_eliminado = eventos.pop(seleccion)
+        print(f"Se ha eliminado el evento {evento_eliminado}")
+    else:
+        print("---------------------------------")
+        print("| ¡No hay eventos que eliminar! |")
+        print("---------------------------------")
     
 
 def modificar_eventos():
     # Funcion que modifica eventos
     print("Modificar")
 
-def ver_eventos():
-    # Funcion para ver eventos en memoria
-    print("Eventos en memoria")
+def ver_eventos_pendientes():
+    # Funcion para ver registros en memoria
+    if len(eventos) != 0:
+        print(f"Eventos registrados:")
+        for id, evento in enumerate (eventos):
+            print(f"{id + 1}. {evento}")
+    else:
+        print("--------------------------------")
+        print("| ¡No hay eventos registrados! |")
+        print("--------------------------------")
 
 
 def main():
@@ -45,7 +79,7 @@ def main():
             
         elif crud == 4:
             # def ver registros
-            ver_eventos()
+            ver_eventos_pendientes()
         
         elif crud == 5:
                 print("Saliendo de la aplicación. ¡Gracias por usar EvenPlus!")
