@@ -88,3 +88,11 @@ def main():
             print("¡Error!, Por favor ingrese un numero del 1 al 5 ")
 
 main()
+"""
+Faltantes
+"""
+# Update de def ingresar_eventos. pide fecha de evento.
+
+# Memoria en txt
+
+# def modificar_evento

@@ -7,6 +7,6 @@
 # Es una suerte de recordatorio para aquellos que no tienen buena memoria.
 
 # División de tareas:
-# Santiago Goldstein: Funciones insertar_eventos, eliminar_eventos, ver_eventos, función main
-# Agustin Goldstein:
-# Agustin Cañadell:
+# Santiago Goldstein: Funciones insertar_eventos, eliminar_eventos, ver_eventos, función main.
+# Agustin Goldstein: Mejora de función insertar, para que se pida la fecha., def modificar_evento.
+# Agustin Cañadell: 
