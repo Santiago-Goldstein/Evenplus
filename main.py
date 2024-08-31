@@ -81,7 +81,8 @@ def main():
             ver_eventos_pendientes()
         
         elif crud == 5:
-                print("Saliendo de la aplicación. ¡Gracias por usar EvenPlus!")
+                print("\n----------------------------------------------------------")
+                print("Saliendo de la aplicación... ¡Gracias por usar EvenPlus!\n")
 
         else:
             print("¡Error!, Por favor ingrese un numero del 1 al 5 ")
