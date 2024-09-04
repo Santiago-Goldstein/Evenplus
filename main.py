@@ -91,8 +91,16 @@ main()
 """
 Faltantes
 """
-# Update de def ingresar_eventos. pide fecha de evento.
 
-# Memoria en txt
+# Login Logout y create account
+
+# Update de def ingresar_eventos:
+#   1 - manejo de tipo de evento (tarea o evento), tarea: es de ingreso facil, evento: pregunta mas cosas
+#   2 - pide fecha de evento.
+
+# Update de def ver_eventos_pendientes:
+#   1 - ver detalles de eventos
+
+# Memoria de la app
 
 # def modificar_evento
