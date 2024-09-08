@@ -1,6 +1,9 @@
 eventos = []
 tareas = []
 
+base_de_datos_usuarios = []
+base_de_datos_contraseñas = []
+
 def insertar_eventos():
     # Funcion que inserta eventos o Tareas.
     evento_usuario = True
@@ -94,45 +97,101 @@ def ver_eventos_pendientes():
         print("| ¡No hay eventos o tareas registrados! |")
         print("-----------------------------------------")
 
-def main():
-    # el usuario debera elegir la accion que desee.
-    crud = 0
-    while crud != 5:
-        print("""
-    Bienvenido a EvenPLus tu app para gestionar tareas y eventos.
-    Elija la accion que desee:
+def register():
+    # Registro de usuarios
+    print("\n¡Registrese!\n")
+    register_ususario = input("Ingrese su nombre para registrarse):\n").lower().capitalize()
+    register_contra = input("Ingrese se apellido:\n").lower().capitalize()
+    base_de_datos_usuarios.append(register_ususario)
+    base_de_datos_contraseñas.append(register_contra)
+    print("-------------------------------------")
+    print("| Usuario Registrado ¡Exitosamente! |")
+    print("-------------------------------------")
+    
+
+def login():
+    # Inicio de sesion a la aplicación
+    print("\nInicio de sesión\n")
+    username = input("Ingrese su nombre para iniciar sesión):\n").lower().capitalize()
+    password = input("Ingrese se apellido:\n").lower().capitalize()
+
+    if username in base_de_datos_usuarios and password in base_de_datos_contraseñas: 
+        print("-----------------------------")
+        print("| Inicio de Sesión ¡Exitoso! |")
+        print("-----------------------------")       
+        return username
+    else:
+        print("\n----------------------------------------------------------------------------")
+        print("Su Nombre o Apellido no se encuentra en la base de datos, Vuelva a intentarlo")
+        return None
+
+
+
+#################### Aplicación ###################
+
+def menu_principal():
+    # Funcion que maneja el menu principal de la app
+    opcion = 0
+    while opcion != 3:
+        print("\n--- Menú Principal ---")
+        print("1. Registrar usuario")
+        print("2. Iniciar sesión")
+        print("3. Salir")
+        opcion = int(input("Seleccione una opción: "))
+        if opcion == 1:
+            register()
+        elif opcion == 2:
+            username = login()
+            if username:
+                menu_usuario(username)
+        elif opcion == 3:
+            print("\n----------------------------------------------------------")
+            print("Saliendo de la aplicación... ¡Gracias por usar EvenPlus!\n")
+        else:
+            print("Opción inválida. Intente de nuevo.")
+
+
+
+
+def menu_usuario(username):
+    # El usuario logeado debera elegir la accion que desee.
+    usuario_main = 0
+    while usuario_main != 5:
+        print(f"""
+    Bienvenido ({username}) a EvenPLus tu app para gestionar tareas y eventos.
+    Elija la acción que desee:
     (1) Insertar un Evento
     (2) Eliminar un Evento
     (3) Modificar un Evento
     (4) Ver Eventos guardados
-    (5) Salir de la App
+    (5) Cerrar sesión
     """)
         
-        crud = int(input("Ingrese el numero de la accion que desea realizar: "))
-        if crud == 1:
+        usuario_main = int(input("Ingrese el numero de la accion que desea realizar: "))
+        if usuario_main == 1:
             # def insertar
             insertar_eventos()
 
-        elif crud == 2:
+        elif usuario_main == 2:
             # def eliminar
             eliminar_eventos()
 
-        elif crud == 3:
+        elif usuario_main == 3:
             # def modificar
             modificar_eventos()
             
-        elif crud == 4:
+        elif usuario_main == 4:
             # def ver registros
             ver_eventos_pendientes()
         
-        elif crud == 5:
-                print("\n----------------------------------------------------------")
-                print("Saliendo de la aplicación... ¡Gracias por usar EvenPlus!\n")
+        elif usuario_main == 5:
+                print("\n-------------------------------")
+                print("Cerrando sesión, ¡Vuelva Pronto!\n")
 
         else:
             print("¡Error!, Por favor ingrese un numero del 1 al 5 ")
 
-main()
+menu_principal()
 """
 Faltantes
 """
