@@ -7,8 +7,8 @@
 # Es una suerte de recordatorio para aquellos que no tienen buena memoria.
 
 # División de tareas:
-# Santiago Goldstein: Funciones insertar_eventos, eliminar_eventos, ver_eventos, función main, Login Logout y create account, ver detalles de eventos en la funcion ver eventos pendientes, Memoria de la app.
+# Santiago Goldstein: Funciones insertar_eventos, eliminar_eventos, ver_eventos, función menu_usuario, funcion menu_principal, funcion login, funcion register, funcion ver eventos pendientes.
 
-# Agustin Goldstein: Mejora de función insertar, para que se pida la fecha., def modificar_evento.
+# Agustin Goldstein: Mejora de función insertar, para que se pida la fecha en eventos, funcion modificar_evento, update de funcion ver_eventos_pendientes.
 
 # Agustin Cañadell: 

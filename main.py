@@ -196,11 +196,8 @@ menu_principal()
 Faltantes
 """
 
-# Login Logout y create account
-
 # Update de def ingresar_eventos:
-#   1 - manejo de tipo de evento (tarea o evento), tarea: es de ingreso facil, evento: pregunta mas cosas
-#   2 - pide fecha de evento.
+#   1 - pide fecha de evento en tipo de registro eventos.
 
 # Update de def ver_eventos_pendientes:
 #   1 - ver detalles de eventos
