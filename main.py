@@ -1,136 +1,159 @@
-eventos = []
-tareas = []
+# Usuario duro admin
+usuarios = {
+    "Admin": {
+        "username": "Admin",
+        "password": "Admin",
+        "eventos": [
+            {"titulo": "Cumpleaños de Agus", "fecha_limite": "25-08-24"},
+            {"titulo": "Cumpleaños Abuela", "fecha_limite": "14-09-24"}
+        ],
+        "tareas": [
+            {"titulo": "Juega River", "fecha_limite": "15-08-24"},
+            {"titulo": "Juega Seleccion", "fecha_limite": "05-10-24"}
+        ]
+    }
+}
 
-base_de_datos_usuarios = []
-base_de_datos_contraseñas = []
 
-def insertar_eventos():
-    # Funcion que inserta eventos o Tareas.
+def insertar_eventos(username):
+    # Inserta eventos o tareas para el usuario logueado
     evento_usuario = True
     while evento_usuario:
-        print("Que quiere insertar?:")
+        print("¿Qué quiere insertar?:")
         print("""
     (1) Para insertar un Evento
     (2) Para insertar una Tarea
     """)
         tarea_evento = int(input())
+        
         if tarea_evento == 1:
-            print("Ingrese un nuevo Evento:")
-            evento_usuario = input("")
-            eventos.append(evento_usuario)
-            print("---------------------------------")
-            print("| Evento Guardado ¡Exitosamente!|")
-            print("---------------------------------\n")
-        elif tarea_evento == 2:
-            print("Ingrese una nueva Tarea:")
-            tarea_usuario = input("")
-            tareas.append(tarea_usuario)
-            print("--------------------------------")
-            print("| Tarea Guardada ¡Exitosamente!|")
-            print("--------------------------------\n")
-        else:
-            print("Por favor elija una opcion valida, Gracias")
+            print("Ingrese el título del evento:")
+            titulo_evento = input("").lower().capitalize()
+            print("Ingrese la fecha límite del evento (Dia-Mes-Año):")
+            fecha_limite = input("")
+            usuarios[username]['eventos'].append({
+                "titulo": titulo_evento,
+                "fecha_limite": fecha_limite
+            })
+            print(f"Evento '{titulo_evento}' guardado exitosamente.")
 
-        print("Desea seguir agregando eventos o tareas? escriba 'si' o 'no'")
+        elif tarea_evento == 2:
+            print("Ingrese el título de la tarea:")
+            titulo_tarea = input("").lower().capitalize()
+            print("Ingrese la fecha límite de la tarea (Dia-Mes-Año):")
+            fecha_limite = input("")
+            usuarios[username]['tareas'].append({
+                "titulo": titulo_tarea,
+                "fecha_limite": fecha_limite
+            })
+            print(f"Tarea '{titulo_tarea}' guardada exitosamente.")
+        
+        else:
+            print("Por favor elija una opción válida.")
+
+        print("¿Desea seguir agregando eventos o tareas? escriba 'si' o 'no'")
         sigue = input("").lower()
 
         if sigue != "si":
             evento_usuario = False
+
     
 
-def eliminar_eventos():
-    # Funcion que elimina registros
-    print("Que quiere Eliminar?:")
+def eliminar_eventos(username):
+    print("¿Qué quiere eliminar?:")
     print("""
     (1) Para eliminar un Evento
     (2) Para eliminar una Tarea
     """)
     tarea_evento_eliminar = int(input())
+
     if tarea_evento_eliminar == 1:
-        if len(eventos) != 0:
-            print(f"Eventos que puedes eliminar:")
-            for id_even, evento in enumerate (eventos):
-                print(f"{id_even + 1}. {evento}")
+        if len(usuarios[username]['eventos']) != 0:
+            print("Eventos que puedes eliminar:")
+            for id_even, evento in enumerate(usuarios[username]['eventos']):
+                print(f"{id_even + 1}. {evento['titulo']} - {evento['fecha_limite']}")
 
-            print("\nIngrese el numero de evento a eliminar:")
-            seleccion = int(input()) -1 # convierte en indice la seleccion con -1
-            evento_eliminado = eventos.pop(seleccion)
-            print(f"Se ha eliminado el evento {evento_eliminado}")
+            print("\nIngrese el número de evento a eliminar:")
+            seleccion = int(input()) - 1
+            evento_eliminado = usuarios[username]['eventos'].pop(seleccion)
+            print(f"Se ha eliminado el evento '{evento_eliminado['titulo']}'")
         else:
-            print("---------------------------------")
-            print("| ¡No hay eventos que eliminar! |")
-            print("---------------------------------")
+            print("No hay eventos que eliminar.")
+
     elif tarea_evento_eliminar == 2:
-        if len(tareas) != 0:
-            print(f"Tareas que puedes eliminar:")
-            for id_tarea, tarea in enumerate (tareas):
-                print(f"{id_tarea + 1}. {tarea}")
+        if len(usuarios[username]['tareas']) != 0:
+            print("Tareas que puedes eliminar:")
+            for id_tarea, tarea in enumerate(usuarios[username]['tareas']):
+                print(f"{id_tarea + 1}. {tarea['titulo']} - {tarea['fecha_limite']}")
 
-            print("\nIngrese el numero de evento a eliminar:")
-            seleccion = int(input()) -1 # convierte en indice la seleccion con -1
-            tarea_eliminada = tareas.pop(seleccion)
-            print(f"Se ha eliminado la tarea {tarea_eliminada}")
+            print("\nIngrese el número de tarea a eliminar:")
+            seleccion = int(input()) - 1
+            tarea_eliminada = usuarios[username]['tareas'].pop(seleccion)
+            print(f"Se ha eliminado la tarea '{tarea_eliminada['titulo']}'")
         else:
-            print("---------------------------------")
-            print("| ¡No hay tareas que eliminar! |")
-            print("---------------------------------")
+            print("No hay tareas que eliminar.")
     else:
-        print("por favor elija una opcion valida, Gracias")
+        print("Por favor elija una opción válida.")
+
     
 def modificar_eventos():
     # Funcion que modifica eventos
     print("Modificar")
 
-def ver_eventos_pendientes():
-    # Funcion para ver registros en memoria
-    if len(eventos) != 0 or len(tareas) != 0:
-        print(f"\nEventos registrados:")
-        for id_even, evento in enumerate (eventos):
-            print(f"{id_even + 1}. {evento}")
+def ver_eventos_pendientes(username):
+    # Muestra los eventos y tareas del usuario logueado
+    if len(usuarios[username]['eventos']) != 0 or len(usuarios[username]['tareas']) != 0:
+        print(f"\nEventos registrados de {username}:")
+        for id_even, evento in enumerate(usuarios[username]['eventos']):
+            print(f"{id_even + 1}. {evento['titulo']} - {evento['fecha_limite']}")
         
-        print("\nTareas registradas:")
-        for id_tarea, tarea in enumerate(tareas):
-            print(f"{id_tarea +1}. {tarea}")
+        print(f"\nTareas registradas de {username}:")
+        for id_tarea, tarea in enumerate(usuarios[username]['tareas']):
+            print(f"{id_tarea + 1}. {tarea['titulo']} - {tarea['fecha_limite']}")
     
     else:
-        print("-----------------------------------------")
-        print("| ¡No hay eventos o tareas registrados! |")
-        print("-----------------------------------------")
+        print("No hay eventos o tareas registrados.")
 
 def register():
-    # Registro de usuarios
-    print("\n¡Registrese!\n")
-    register_ususario = input("Ingrese su nombre para registrarse):\n").lower().capitalize()
-    register_contra = input("Ingrese se apellido:\n").lower().capitalize()
-    base_de_datos_usuarios.append(register_ususario)
-    base_de_datos_contraseñas.append(register_contra)
-    print("-------------------------------------")
-    print("| Usuario Registrado ¡Exitosamente! |")
-    print("-------------------------------------")
+    print("\n¡Regístrese!\n")
+    register_usuario = input("Ingrese su nombre para registrarse: ").lower().capitalize()
+    register_contra = input("Ingrese su contraseña: ").lower().capitalize()
+
+    usuarios[register_usuario] = {
+        "username": register_usuario,
+        "password": register_contra,
+        "eventos": [],
+        "tareas": []
+    }
+
+    print("Usuario registrado exitosamente.")
+
     
 
 def login():
-    # Inicio de sesion a la aplicación
+    # Inicio de sesión a la aplicación
     print("\nInicio de sesión\n")
-    username = input("Ingrese su nombre para iniciar sesión):\n").lower().capitalize()
-    password = input("Ingrese se apellido:\n").lower().capitalize()
+    username = input("Ingrese su nombre para iniciar sesión:\n").lower().capitalize()
+    password = input("Ingrese su contraseña:\n").lower().capitalize()
 
-    if username in base_de_datos_usuarios and password in base_de_datos_contraseñas: 
-        print("-----------------------------")
-        print("| Inicio de Sesión ¡Exitoso! |")
-        print("-----------------------------")       
-        return username
-    else:
-        print("\n----------------------------------------------------------------------------")
-        print("Su Nombre o Apellido no se encuentra en la base de datos, Vuelva a intentarlo")
-        return None
-
+    # Verificamos si el usuario existe en el diccionario
+    for usuario, datos in usuarios.items():
+        if datos['username'] == username and datos['password'] == password:
+            print("-----------------------------")
+            print("| Inicio de Sesión ¡Exitoso! |")
+            print("-----------------------------")
+            return usuario  # Retorna la clave del usuario en el diccionario
+    
+    # Si no se encuentra el usuario o contraseña no coinciden
+    print("\n----------------------------------------------------------------------------")
+    print("Su Nombre o Contraseña no se encuentra en la base de datos, Vuelva a intentarlo")
+    return None
 
 
 #################### Aplicación ###################
 
 def menu_principal():
-    # Funcion que maneja el menu principal de la app
+    # Menú principal de la aplicación
     opcion = 0
     while opcion != 3:
         print("\n--- Menú Principal ---")
@@ -138,15 +161,20 @@ def menu_principal():
         print("2. Iniciar sesión")
         print("3. Salir")
         opcion = int(input("Seleccione una opción: "))
+
         if opcion == 1:
-            register()
+            register()  # Llamamos a la función de registro
+
         elif opcion == 2:
-            username = login()
-            if username:
-                menu_usuario(username)
+            usuario_logeado = login()  # Llamamos a la función login y obtenemos la clave del usuario
+
+            if usuario_logeado:
+                menu_usuario(usuario_logeado)  # Si el login es exitoso, vamos al menú de usuario
+
         elif opcion == 3:
             print("\n----------------------------------------------------------")
             print("Saliendo de la aplicación... ¡Gracias por usar EvenPlus!\n")
+        
         else:
             print("Opción inválida. Intente de nuevo.")
 
@@ -170,23 +198,23 @@ def menu_usuario(username):
         usuario_main = int(input("Ingrese el numero de la accion que desea realizar: "))
         if usuario_main == 1:
             # def insertar
-            insertar_eventos()
+            insertar_eventos(username)
 
         elif usuario_main == 2:
             # def eliminar
-            eliminar_eventos()
+            eliminar_eventos(username)
 
         elif usuario_main == 3:
             # def modificar
-            modificar_eventos()
+            modificar_eventos(username)
             
         elif usuario_main == 4:
             # def ver registros
-            ver_eventos_pendientes()
+            ver_eventos_pendientes(username)
         
         elif usuario_main == 5:
                 print("\n-------------------------------")
-                print("Cerrando sesión, ¡Vuelva Pronto!\n")
+                print("Cerrando sesión... ¡Vuelva Pronto!\n")
 
         else:
             print("¡Error!, Por favor ingrese un numero del 1 al 5 ")
