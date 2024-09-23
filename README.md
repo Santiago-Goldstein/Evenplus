@@ -21,6 +21,9 @@ EvenPlus ofrece las siguientes características:
   - Eliminar eventos o tareas.
   - Modificar eventos o tareas.
   - Ver los eventos o tareas.
+  - Ver proximos eventos
+  - Ver historial
+  - Cerrar sesion
 - **Usuarios independientes**: Cada usuario tiene sus propios eventos y tareas registrados.
 - **Cerrar sesión**: Los usuarios pueden cerrar sesión e iterar entre distintos perfiles.
 
@@ -28,5 +31,5 @@ EvenPlus ofrece las siguientes características:
 
 | Integrante           | Responsabilidades                                                                                       |
 |----------------------|--------------------------------------------------------------------------------------------------------|
-| **Santiago Goldstein** | - Funciones: `insertar_eventos`, `eliminar_eventos`, `ver_eventos`.<br> - `menu_usuario`, `menu_principal`, `login`, `funcion register`, `ver_eventos_pendientes`. |
-| **Agustín Goldstein**  | - Mejora de la función `insertar_eventos` (agregando descripciones y fechas).<br> - Función: `modificar_evento`.<br> - Actualización de `ver_eventos_pendientes`. |
+| **Santiago Goldstein** | - Funciones: `insertar_eventos`, `eliminar_eventos`, `ver_eventos`.<br> - `menu_usuario`, `menu_principal`, `login`, `funcion register`, `ver_eventos_pendientes`, `ver_historial`. |
+| **Agustín Goldstein**  | - Mejora de la función `insertar_eventos` (agregando descripciones y fechas).<br> - Funciones: `modificar_evento`, `ver_proximos_eventos_lambda`.<br> - Actualización de `ver_eventos_pendientes` (con las fechas y descripciones). |
