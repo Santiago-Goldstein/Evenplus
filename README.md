@@ -28,5 +28,5 @@ EvenPlus ofrece las siguientes características:
 
 | Integrante           | Responsabilidades                                                                                       |
 |----------------------|--------------------------------------------------------------------------------------------------------|
-| **Santiago Goldstein** | - Funciones: `insertar_eventos`, `eliminar_eventos`, `ver_eventos`.<br> - `menu_usuario`, `menu_principal`, `login`, `register`, `ver_eventos_pendientes`. |
+| **Santiago Goldstein** | - Funciones: `insertar_eventos`, `eliminar_eventos`, `ver_eventos`.<br> - `menu_usuario`, `menu_principal`, `login`, `funcion register`, `ver_eventos_pendientes`. |
 | **Agustín Goldstein**  | - Mejora de la función `insertar_eventos` (agregando descripciones y fechas).<br> - Función: `modificar_evento`.<br> - Actualización de `ver_eventos_pendientes`. |
