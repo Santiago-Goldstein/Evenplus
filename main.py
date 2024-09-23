@@ -10,9 +10,15 @@ usuarios = {
         "tareas": [
             {"titulo": "Juega River", "fecha_limite": "15-08-24", "descripcion": "Ver el partido en casa"},
             {"titulo": "Juega Seleccion", "fecha_limite": "05-10-24", "descripcion": "Ir al estadio"}
-        ]
+        ],
+        "historial": []
     }
 }
+
+def agregar_a_historial(username, tipo, titulo, fecha_limite, descripcion):
+    # Agrega un nuevo registro al historial del usuario
+    usuarios[username]['historial'].append([tipo, titulo, fecha_limite, descripcion])
+
 
 def insertar_eventos(username):
     # Inserta eventos o tareas para el usuario logueado
@@ -37,6 +43,8 @@ def insertar_eventos(username):
                 "fecha_limite": fecha_limite,
                 "descripcion": descripcion
             })
+
+            agregar_a_historial(username, "Evento", titulo_evento, fecha_limite, descripcion)  # Agregar al historial
             print(f"Evento '{titulo_evento}' guardado exitosamente.")
 
         elif tarea_evento == 2:
@@ -51,6 +59,8 @@ def insertar_eventos(username):
                 "fecha_limite": fecha_limite,
                 "descripcion": descripcion
             })
+
+            agregar_a_historial(username, "Tarea", titulo_tarea, fecha_limite, descripcion)  # Agregar al historial
             print(f"Tarea '{titulo_tarea}' guardada exitosamente.")
         
         else:
@@ -215,6 +225,17 @@ def ver_proximos_eventos_lambda(username):
         print("No hay eventos o tareas registrados.")
 
 
+def ver_historial(username):
+    # Funcion que muestra el historial de el usuario logueado
+    if len(usuarios[username]['historial']) != 0:
+        print("\nHistorial de Eventos y Tareas:")
+        for registro in usuarios[username]['historial']:
+            tipo, titulo, fecha_limite, descripcion = registro
+            print(f"{tipo}: {titulo} - {fecha_limite} - {descripcion}")
+    else:
+        print("No hay historial")
+
+
 def register():
     #Funcion para registrarse en la app 
     print("\n¡Regístrese!\n")
@@ -225,7 +246,8 @@ def register():
         "username": register_usuario,
         "password": register_contra,
         "eventos": [],
-        "tareas": []
+        "tareas": [],
+        "historial": []
     }
 
     print("Usuario registrado exitosamente.")
@@ -286,7 +308,7 @@ def menu_principal():
 def menu_usuario(username):
     # El usuario logeado debera elegir la accion que desee.
     usuario_main = 0
-    while usuario_main != 6:
+    while usuario_main != 7:
         print(f"""
     Bienvenido ({username}) a EvenPLus tu app para gestionar tareas y eventos.
     Elija la acción que desee:
@@ -295,7 +317,8 @@ def menu_usuario(username):
     (3) Modificar un Evento
     (4) Ver Eventos Pendientes
     (5) Ver Proximos Eventos 
-    (6) Cerrar sesión
+    (6) Ver Historial
+    (7) Cerrar sesión
     """)
         
         usuario_main = int(input("Ingrese el numero de la accion que desea realizar: "))
@@ -318,8 +341,12 @@ def menu_usuario(username):
         elif usuario_main == 5:
             # def ver proximos eventos
             ver_proximos_eventos_lambda(username)
-        
+
         elif usuario_main == 6:
+            # def ver historial
+            ver_historial(username)
+        
+        elif usuario_main == 7:
                 print("\n-------------------------------")
                 print("Cerrando sesión... ¡Vuelva Pronto!\n")
 
