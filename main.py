@@ -64,7 +64,7 @@ def insertar_eventos(username):
 
 
 def modificar_eventos(username):
-    # Te permite modificar eventos, tareas y descripcion
+    # Te permite modificar eventos, tareas y descripciones
     print("¿Qué quiere modificar?:")
     print("""
     (1) Para modificar un Evento
@@ -150,6 +150,7 @@ def modificar_eventos(username):
     
 
 def eliminar_eventos(username):
+    #Te permite eliminar eventos o tareas
     print("¿Qué quiere eliminar?:")
     print("""
     (1) Para eliminar un Evento
@@ -202,7 +203,20 @@ def ver_eventos_pendientes(username):
         print("No hay eventos o tareas registrados.")
 
 
+def ver_proximos_eventos_lambda(username):
+    print(f"\nFunción en desarrollo: Próximos eventos de {username}")
+    obtener_evento = lambda eventos, tareas: eventos[0] if eventos else (tareas[0] if tareas else None)
+    proximo = obtener_evento(usuarios[username]['eventos'], usuarios[username]['tareas'])
+
+    # Mostrar eventos próximos
+    if proximo:
+        print(f"Próximo evento/tarea: {proximo['titulo']} - {proximo['fecha_limite']} - {proximo['descripcion']}")
+    else:
+        print("No hay eventos o tareas registrados.")
+
+
 def register():
+    #Funcion para registrarse en la app 
     print("\n¡Regístrese!\n")
     register_usuario = input("Ingrese su nombre para registrarse: ").lower().capitalize()
     register_contra = input("Ingrese su contraseña: ").lower().capitalize()
@@ -272,15 +286,16 @@ def menu_principal():
 def menu_usuario(username):
     # El usuario logeado debera elegir la accion que desee.
     usuario_main = 0
-    while usuario_main != 5:
+    while usuario_main != 6:
         print(f"""
     Bienvenido ({username}) a EvenPLus tu app para gestionar tareas y eventos.
     Elija la acción que desee:
     (1) Insertar un Evento
     (2) Eliminar un Evento
     (3) Modificar un Evento
-    (4) Ver Eventos guardados
-    (5) Cerrar sesión
+    (4) Ver Eventos Pendientes
+    (5) Ver Proximos Eventos 
+    (6) Cerrar sesión
     """)
         
         usuario_main = int(input("Ingrese el numero de la accion que desea realizar: "))
@@ -297,23 +312,28 @@ def menu_usuario(username):
             modificar_eventos(username)
             
         elif usuario_main == 4:
-            # def ver registros
+            # def ver eventos pedientes
             ver_eventos_pendientes(username)
-        
+            
         elif usuario_main == 5:
+            # def ver proximos eventos
+            ver_proximos_eventos_lambda(username)
+        
+        elif usuario_main == 6:
                 print("\n-------------------------------")
                 print("Cerrando sesión... ¡Vuelva Pronto!\n")
 
         else:
-            print("¡Error!, Por favor ingrese un numero del 1 al 5 ")
+            print("¡Error!, Por favor ingrese un numero del 1 al 6 ")
 
 menu_principal()
+
 """
 Faltantes
 """
 
 # Update de def ver_eventos_pendientes:
-#   1 - ver detalles de eventos
+# 1 - Ver detalles de eventos
 # Memoria de la app (archivo externo json)
 # implementarle alguna lógica que te permita ver los días restantes hasta el evento, tarea próximo, usando la fecha actual, en la que interviene el usuario. Ver próximo evento. (Datetime)
 # Implementar expresiones regulares en registro. (Requerimientos para el usuario y la contraseña) (patrón)
