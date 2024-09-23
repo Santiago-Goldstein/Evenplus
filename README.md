@@ -1,20 +1,32 @@
-# Evenplus
+# EvenPlus
 
-# Integrantes: Goldstein, Santiago
-#              Goldstein, Agustin
-#              Cañadell, Agustin
+## Integrantes
+- **Santiago Goldstein**
+- **Agustín Goldstein**
 
-# Introduccion
+## Introducción
+**EvenPlus** es una aplicación diseñada como un recordatorio para los usuarios, actuando como una "mente externa" donde pueden registrar todas las tareas o eventos cotidianos. 
 
-# EvenPlus es una aplicación que funciona como recordatorio para sus usuarios. Una suerte de mente externa donde se puede volcar todas esas tareas o eventos que tenemos cotidianamente. La app considera eventos a aquellas asistencias a lugares, como por ejemplo cumpleaños, reuniones, recordatorio de fechas importantes, etc. Y tareas a cosas cotidianas, como por ejemplo doblar la ropa, hacer la tarea de la facultad o sacar a pasear al perro.
+### Eventos:
+Son asistencias a lugares, como cumpleaños, reuniones o recordatorios de fechas importantes.
 
-# Funcionalidades:
-# La aplicacion te permite registrarte e iniciar sesion y una vez logeado podes crear eventos o tareas, eliminarlos, modificarlos, y verlos, luego podra cerrar sesion e iterar en los distintos usuarios creados, cada usuario tendra sus eventos y tareas previamente generadas.
+### Tareas:
+Son acciones cotidianas como doblar la ropa, hacer tareas universitarias o sacar a pasear al perro.
 
+## Funcionalidades
+EvenPlus ofrece las siguientes características:
+- **Registro e inicio de sesión**: Cada usuario puede registrarse e iniciar sesión.
+- **Gestión de eventos y tareas**: Una vez logueado, el usuario puede:
+  - Crear eventos o tareas.
+  - Eliminar eventos o tareas.
+  - Modificar eventos o tareas.
+  - Ver los eventos o tareas.
+- **Usuarios independientes**: Cada usuario tiene sus propios eventos y tareas registrados.
+- **Cerrar sesión**: Los usuarios pueden cerrar sesión e iterar entre distintos perfiles.
 
-# División de tareas:
-# Santiago Goldstein: Funciones insertar_eventos, eliminar_eventos, ver_eventos, función menu_usuario, funcion menu_principal, funcion login, funcion register, funcion ver eventos pendientes.
+## División de Tareas
 
-# Agustin Goldstein: Mejora de función insertar (se agregaron descripciones y fechas), funcion modificar_evento, update de funcion ver_eventos_pendientes
-
-# Agustin Cañadell: 
+| Integrante           | Responsabilidades                                                                                       |
+|----------------------|--------------------------------------------------------------------------------------------------------|
+| **Santiago Goldstein** | - Funciones: `insertar_eventos`, `eliminar_eventos`, `ver_eventos`.<br> - `menu_usuario`, `menu_principal`, `login`, `register`, `ver_eventos_pendientes`. |
+| **Agustín Goldstein**  | - Mejora de la función `insertar_eventos` (agregando descripciones y fechas).<br> - Función: `modificar_evento`.<br> - Actualización de `ver_eventos_pendientes`. |
