@@ -1,4 +1,4 @@
-# Usuario duro admin con descripciones añadidas
+""" Usuario duro admin con descripciones añadidas """
 usuarios = {
     "Admin": {
         "username": "Admin",
@@ -16,12 +16,12 @@ usuarios = {
 }
 
 def agregar_a_historial(username, tipo, titulo, fecha_limite, descripcion):
-    # Agrega un nuevo registro al historial del usuario
+    """ Agrega un nuevo registro al historial del usuario """
     usuarios[username]['historial'].append([tipo, titulo, fecha_limite, descripcion])
 
 
 def insertar_eventos(username):
-    # Inserta eventos o tareas para el usuario logueado
+    """ Inserta eventos o tareas para el usuario logueado """
     evento_usuario = True
     while evento_usuario:
         print("¿Qué quiere insertar?:")
@@ -32,11 +32,11 @@ def insertar_eventos(username):
         tarea_evento = int(input())
         
         if tarea_evento == 1:
-            print("Ingrese el título del evento:")
+            print("Ingrese el nombre del evento:")
             titulo_evento = input("").lower().capitalize()
-            print("Ingrese la fecha límite del evento (Dia-Mes-Año):")
+            print("Ingrese la fecha del evento (Dia-Mes-Año):")
             fecha_limite = input("")
-            print("Ingrese una descripción del evento:")
+            print("Ingrese la descripción del evento:")
             descripcion = input("")
             usuarios[username]['eventos'].append({
                 "titulo": titulo_evento,
@@ -48,11 +48,11 @@ def insertar_eventos(username):
             print(f"Evento '{titulo_evento}' guardado exitosamente.")
 
         elif tarea_evento == 2:
-            print("Ingrese el título de la tarea:")
+            print("Ingrese el nombre de la tarea:")
             titulo_tarea = input("").lower().capitalize()
-            print("Ingrese la fecha límite de la tarea (Dia-Mes-Año):")
+            print("Ingrese la fecha de la tarea (Dia-Mes-Año):")
             fecha_limite = input("")
-            print("Ingrese una descripción de la tarea:")
+            print("Ingrese la descripción de la tarea:")
             descripcion = input("")
             usuarios[username]['tareas'].append({
                 "titulo": titulo_tarea,
@@ -74,7 +74,7 @@ def insertar_eventos(username):
 
 
 def modificar_eventos(username):
-    # Te permite modificar eventos, tareas y descripciones
+    """ Te permite modificar eventos, tareas y descripciones """
     print("¿Qué quiere modificar?:")
     print("""
     (1) Para modificar un Evento
@@ -160,7 +160,7 @@ def modificar_eventos(username):
     
 
 def eliminar_eventos(username):
-    #Te permite eliminar eventos o tareas
+    """ Te permite eliminar eventos o tareas """
     print("¿Qué quiere eliminar?:")
     print("""
     (1) Para eliminar un Evento
@@ -199,7 +199,7 @@ def eliminar_eventos(username):
     
 
 def ver_eventos_pendientes(username):
-    # Muestra los eventos y tareas del usuario logueado
+    """ Muestra los eventos y tareas del usuario logueado """
     if len(usuarios[username]['eventos']) != 0 or len(usuarios[username]['tareas']) != 0:
         print(f"\nEventos registrados de {username}:")
         for id_even, evento in enumerate(usuarios[username]['eventos']):
@@ -218,7 +218,7 @@ def ver_proximos_eventos_lambda(username):
     obtener_evento = lambda eventos, tareas: eventos[0] if eventos else (tareas[0] if tareas else None)
     proximo = obtener_evento(usuarios[username]['eventos'], usuarios[username]['tareas'])
 
-    # Mostrar eventos próximos
+    """ Mostrar eventos próximos """
     if proximo:
         print(f"Próximo evento/tarea: {proximo['titulo']} - {proximo['fecha_limite']} - {proximo['descripcion']}")
     else:
@@ -226,7 +226,7 @@ def ver_proximos_eventos_lambda(username):
 
 
 def ver_historial(username):
-    # Funcion que muestra el historial de el usuario logueado
+    """ Funcion que muestra el historial de el usuario logueado """
     if len(usuarios[username]['historial']) != 0:
         print("\nHistorial de Eventos y Tareas:")
         for registro in usuarios[username]['historial']:
@@ -237,10 +237,10 @@ def ver_historial(username):
 
 
 def register():
-    #Funcion para registrarse en la app 
+    """ Funcion para registrarse en la app """
     print("\n¡Regístrese!\n")
-    register_usuario = input("Ingrese su nombre para registrarse: ").lower().capitalize()
-    register_contra = input("Ingrese su contraseña: ").lower().capitalize()
+    register_usuario = input("Ingrese un usuario para registrarse: ").lower().capitalize()
+    register_contra = input("Ingrese una contraseña: ").lower().capitalize()
 
     usuarios[register_usuario] = {
         "username": register_usuario,
@@ -255,12 +255,12 @@ def register():
     
 
 def login():
-    # Inicio de sesión a la aplicación
+    """ Inicio de sesión a la aplicación """
     print("\nInicio de sesión\n")
-    username = input("Ingrese su nombre para iniciar sesión:\n").lower().capitalize()
+    username = input("Ingrese su usuario para iniciar sesión:\n").lower().capitalize()
     password = input("Ingrese su contraseña:\n").lower().capitalize()
 
-    # Verificamos si el usuario existe en el diccionario
+    """ Verificamos si el usuario existe en el diccionario """
     for usuario, datos in usuarios.items():
         if datos['username'] == username and datos['password'] == password:
             print("-----------------------------")
@@ -268,7 +268,7 @@ def login():
             print("-----------------------------")
             return usuario  # Retorna la clave del usuario en el diccionario
     
-    # Si no se encuentra el usuario o contraseña no coinciden
+    """ Si no se encuentra el usuario o contraseña no coinciden """
     print("\n----------------------------------------------------------------------------")
     print("Su Nombre o Contraseña no se encuentra en la base de datos, Vuelva a intentarlo")
     return None
@@ -277,7 +277,7 @@ def login():
 #################### Aplicación ###################
 
 def menu_principal():
-    # Menú principal de la aplicación
+    """ Menú principal de la aplicación """
     opcion = 0
     while opcion != 3:
         print("\n--- Menú Principal ---")
@@ -306,12 +306,12 @@ def menu_principal():
 
 
 def menu_usuario(username):
-    # El usuario logeado debera elegir la accion que desee.
+    """ El usuario logeado debera elegir la accion que desee. """
     usuario_main = 0
     while usuario_main != 7:
         print(f"""
-    Bienvenido ({username}) a EvenPLus tu app para gestionar tareas y eventos.
-    Elija la acción que desee:
+    Bienvenido ({username}) a EvenPLus tu App para gestionar tareas y eventos.
+    Elija la opción que desee:
     (1) Insertar un Evento
     (2) Eliminar un Evento
     (3) Modificar un Evento
@@ -321,29 +321,29 @@ def menu_usuario(username):
     (7) Cerrar sesión
     """)
         
-        usuario_main = int(input("Ingrese el numero de la accion que desea realizar: "))
+        usuario_main = int(input("Ingrese el numero de la opción que desea realizar: "))
         if usuario_main == 1:
-            # def insertar
+            """ def insertar """
             insertar_eventos(username)
 
         elif usuario_main == 2:
-            # def eliminar
+            """ def eliminar """
             eliminar_eventos(username)
 
         elif usuario_main == 3:
-            # def modificar
+            """ def modificar """
             modificar_eventos(username)
             
         elif usuario_main == 4:
-            # def ver eventos pedientes
+            """ def ver eventos pedientes """
             ver_eventos_pendientes(username)
             
         elif usuario_main == 5:
-            # def ver proximos eventos
+            """ def ver proximos eventos """
             ver_proximos_eventos_lambda(username)
 
         elif usuario_main == 6:
-            # def ver historial
+            """ def ver historial """
             ver_historial(username)
         
         elif usuario_main == 7:
@@ -351,19 +351,18 @@ def menu_usuario(username):
                 print("Cerrando sesión... ¡Vuelva Pronto!\n")
 
         else:
-            print("¡Error!, Por favor ingrese un numero del 1 al 6 ")
+            print("¡Error!, Por favor ingrese un numero del 1 al 7 ")
 
 menu_principal()
 
 """
-Faltantes
+Faltantes:
+
+ Update de def ver_eventos_pendientes:
+ 1 - Ver detalles de eventos
+ Memoria de la app (archivo externo json)
+ implementarle alguna lógica que te permita ver los días restantes hasta el evento, tarea próximo, usando la fecha actual, en la que interviene el usuario. Ver próximo evento. (Datetime)
+ Implementar expresiones regulares en registro. (Requerimientos para el usuario y la contraseña) (patrón)
+ Embellecimiento del código, cadena de caracteres (comentarios del código)
+ Ver eventos completados
 """
-
-# Update de def ver_eventos_pendientes:
-# 1 - Ver detalles de eventos
-# Memoria de la app (archivo externo json)
-# implementarle alguna lógica que te permita ver los días restantes hasta el evento, tarea próximo, usando la fecha actual, en la que interviene el usuario. Ver próximo evento. (Datetime)
-# Implementar expresiones regulares en registro. (Requerimientos para el usuario y la contraseña) (patrón)
-# Embellecimiento del código, cadena de caracteres (comentarios del código)
-# Ver eventos completados
-
