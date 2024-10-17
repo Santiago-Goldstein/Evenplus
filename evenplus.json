@@ -1,0 +1,54 @@
+{
+    "Admin": {
+        "username": "Admin",
+        "password": "Admin",
+        "eventos": [
+            {
+                "titulo": "Reunion de trabajo",
+                "fecha_limite": "15-10-2024",
+                "descripcion": "Reunion con el equipo para discutir el proyecto"
+            }
+        ],
+        "tareas": [
+            {
+                "titulo": "Entrega del reporte",
+                "fecha_limite": "20-10-2024",
+                "descripcion": "Preparar el reporte financiero trimestral"
+            }
+        ],
+        "historial": [
+            [
+                "Evento",
+                "Reunion de trabajo",
+                "15-10-2024",
+                "Reunion con el equipo para discutir el proyecto"
+            ],
+            [
+                "Tarea",
+                "Entrega del reporte",
+                "20-10-2024",
+                "Preparar el reporte financiero trimestral"
+            ]
+        ]
+    },
+    "Sol": {
+        "username": "Sol",
+        "password": "Sol",
+        "eventos": [],
+        "tareas": [],
+        "historial": [
+            [
+                "Tarea",
+                "Comprar helado",
+                "16",
+                "ir a perlatto"
+            ],
+            [
+                "Evento",
+                "Cumple mes de novio",
+                "16-10-24",
+                "comprar regalito a santi que lo tengo re olvidado"
+            ]
+        ]
+    }
+}

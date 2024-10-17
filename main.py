@@ -1,19 +1,20 @@
-""" Usuario duro admin con descripciones añadidas """
-usuarios = {
-    "Admin": {
-        "username": "Admin",
-        "password": "Admin",
-        "eventos": [
-            {"titulo": "Cumpleaños de Agus", "fecha_limite": "25-08-24", "descripcion": "Celebrar con amigos"},
-            {"titulo": "Cumpleaños Abuela", "fecha_limite": "14-09-24", "descripcion": "Llevar pastel"}
-        ],
-        "tareas": [
-            {"titulo": "Juega River", "fecha_limite": "15-08-24", "descripcion": "Ver el partido en casa"},
-            {"titulo": "Juega Seleccion", "fecha_limite": "05-10-24", "descripcion": "Ir al estadio"}
-        ],
-        "historial": []
-    }
-}
+import json
+
+def cargar_datos():
+    """ Cargar datos desde el archivo JSON """
+    try:
+        with open("C:/Users/santi/Desktop/Evenplus/evenplus.json", "r") as archivo:
+            return json.load(archivo)
+    except FileNotFoundError:
+        return {}
+
+
+def guardar_datos():
+    """ Guardar datos en el archivo JSON """
+    with open("C:/Users/santi/Desktop/Progra 1/prueba/practica json/json_evenplus.json", "w") as archivo:
+        json.dump(usuarios, archivo, indent=4)
+
+usuarios = cargar_datos()
 
 def agregar_a_historial(username, tipo, titulo, fecha_limite, descripcion):
     """ Agrega un nuevo registro al historial del usuario """
@@ -45,6 +46,7 @@ def insertar_eventos(username):
             })
 
             agregar_a_historial(username, "Evento", titulo_evento, fecha_limite, descripcion)  # Agregar al historial
+            guardar_datos()  # Guardar cambios
             print(f"Evento '{titulo_evento}' guardado exitosamente.")
 
         elif tarea_evento == 2:
@@ -61,6 +63,7 @@ def insertar_eventos(username):
             })
 
             agregar_a_historial(username, "Tarea", titulo_tarea, fecha_limite, descripcion)  # Agregar al historial
+            guardar_datos()  # Guardar cambios
             print(f"Tarea '{titulo_tarea}' guardada exitosamente.")
         
         else:
@@ -103,16 +106,19 @@ def modificar_eventos(username):
             if opcion_modificar == 1:
                 nuevo_titulo = input("Ingrese el nuevo título: ").lower().capitalize()
                 evento_seleccionado['titulo'] = nuevo_titulo
+                guardar_datos()  # Guardar cambios
                 print(f"Título del evento actualizado a '{nuevo_titulo}'")
 
             elif opcion_modificar == 2:
                 nueva_fecha = input("Ingrese la nueva fecha límite (Dia-Mes-Año): ")
                 evento_seleccionado['fecha_limite'] = nueva_fecha
+                guardar_datos()  # Guardar cambios
                 print(f"Fecha límite del evento actualizada a '{nueva_fecha}'")
 
             elif opcion_modificar == 3:
                 nueva_descripcion = input("Ingrese la nueva descripción: ")
                 evento_seleccionado['descripcion'] = nueva_descripcion
+                guardar_datos()  # Guardar cambios
                 print(f"Descripción del evento actualizada a '{nueva_descripcion}'")
             
         else:
@@ -139,16 +145,19 @@ def modificar_eventos(username):
             if opcion_modificar == 1:
                 nuevo_titulo = input("Ingrese el nuevo título: ").lower().capitalize()
                 tarea_seleccionada['titulo'] = nuevo_titulo
+                guardar_datos()  # Guardar cambios
                 print(f"Título de la tarea actualizado a '{nuevo_titulo}'")
 
             elif opcion_modificar == 2:
                 nueva_fecha = input("Ingrese la nueva fecha límite (Dia-Mes-Año): ")
                 tarea_seleccionada['fecha_limite'] = nueva_fecha
+                guardar_datos()  # Guardar cambios
                 print(f"Fecha límite de la tarea actualizada a '{nueva_fecha}'")
 
             elif opcion_modificar == 3:
                 nueva_descripcion = input("Ingrese la nueva descripción: ")
                 tarea_seleccionada['descripcion'] = nueva_descripcion
+                guardar_datos()  # Guardar cambios
                 print(f"Descripción de la tarea actualizada a '{nueva_descripcion}'")
             
         else:
@@ -177,6 +186,7 @@ def eliminar_eventos(username):
             print("\nIngrese el número de evento a eliminar:")
             seleccion = int(input()) - 1
             evento_eliminado = usuarios[username]['eventos'].pop(seleccion)
+            guardar_datos()  # Guardar cambios
             print(f"Se ha eliminado el evento '{evento_eliminado['titulo']}'")
         else:
             print("No hay eventos que eliminar.")
@@ -190,6 +200,7 @@ def eliminar_eventos(username):
             print("\nIngrese el número de tarea a eliminar:")
             seleccion = int(input()) - 1
             tarea_eliminada = usuarios[username]['tareas'].pop(seleccion)
+            guardar_datos()  # Guardar cambios
             print(f"Se ha eliminado la tarea '{tarea_eliminada['titulo']}'")
         else:
             print("No hay tareas que eliminar.")
@@ -249,7 +260,7 @@ def register():
         "tareas": [],
         "historial": []
     }
-
+    guardar_datos()  # Guardar cambios
     print("Usuario registrado exitosamente.")
 
     
