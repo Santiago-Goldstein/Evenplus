@@ -30,25 +30,5 @@
                 "Preparar el reporte financiero trimestral"
             ]
         ]
-    },
-    "Sol": {
-        "username": "Sol",
-        "password": "Sol",
-        "eventos": [],
-        "tareas": [],
-        "historial": [
-            [
-                "Tarea",
-                "Comprar helado",
-                "16",
-                "ir a perlatto"
-            ],
-            [
-                "Evento",
-                "Cumple mes de novio",
-                "16-10-24",
-                "comprar regalito a santi que lo tengo re olvidado"
-            ]
-        ]
     }
 }
