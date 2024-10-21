@@ -1,4 +1,24 @@
 import json
+import os
+from colorama import Fore, init
+from rich.console import Console
+from pyfiglet import figlet_format
+
+init(autoreset=True)
+console = Console()
+
+def generar_espacios():
+    """Genera espacios en blanco para centrar un mensaje en el medio de la terminal."""
+    # Tamaño actual de la terminal
+    tamaño_terminal = os.get_terminal_size()
+    alto_terminal = tamaño_terminal.lines
+
+    # Calcular el número de líneas en blanco necesarias para centrar el mensaje
+    lineas_vacias_arriba = alto_terminal // 2
+
+    # Imprimir líneas en blanco antes del mensaje para centrarlo verticalmente
+    print('\n' * lineas_vacias_arriba)
+
 
 def cargar_datos():
     """ Cargar datos desde el archivo JSON """
@@ -47,6 +67,7 @@ def insertar_eventos(username):
 
             agregar_a_historial(username, "Evento", titulo_evento, fecha_limite, descripcion)  # Agregar al historial
             guardar_datos()  # Guardar cambios
+            generar_espacios()
             print(f"Evento '{titulo_evento}' guardado exitosamente.")
 
         elif tarea_evento == 2:
@@ -63,12 +84,13 @@ def insertar_eventos(username):
             })
 
             agregar_a_historial(username, "Tarea", titulo_tarea, fecha_limite, descripcion)  # Agregar al historial
-            guardar_datos()  # Guardar cambios
+            guardar_datos()  # Guardar cambios     
+            generar_espacios() # Espacios
             print(f"Tarea '{titulo_tarea}' guardada exitosamente.")
-        
         else:
             print("Por favor elija una opción válida.")
 
+        generar_espacios()
         print("¿Desea seguir agregando eventos o tareas? escriba 'si' o 'no'")
         sigue = input("").lower()
 
@@ -261,7 +283,9 @@ def register():
         "historial": []
     }
     guardar_datos()  # Guardar cambios
-    print("Usuario registrado exitosamente.")
+    console.print("[bold green]\n-----------------------------------[/bold green]")
+    console.print("[bold green]| Usuario registrado exitosamente |[/bold green]")
+    console.print("[bold green]-----------------------------------[/bold green]")
 
     
 
@@ -274,9 +298,9 @@ def login():
     """ Verificamos si el usuario existe en el diccionario """
     for usuario, datos in usuarios.items():
         if datos['username'] == username and datos['password'] == password:
-            print("-----------------------------")
-            print("| Inicio de Sesión ¡Exitoso! |")
-            print("-----------------------------")
+            console.print("[bold green]------------------------------[/bold green]")
+            console.print("[bold green]| Inicio de Sesión ¡Exitoso! |[/bold green]")
+            console.print("[bold green]------------------------------[/bold green]")
             return usuario  # Retorna la clave del usuario en el diccionario
     
     """ Si no se encuentra el usuario o contraseña no coinciden """
@@ -291,11 +315,13 @@ def menu_principal():
     """ Menú principal de la aplicación """
     opcion = 0
     while opcion != 3:
-        print("\n--- Menú Principal ---")
-        print("1. Registrar usuario")
-        print("2. Iniciar sesión")
-        print("3. Salir")
-        opcion = int(input("Seleccione una opción: "))
+        print(Fore.CYAN + figlet_format("Evenplus App"))
+        print(Fore.BLUE + "\n--- Menú Principal ---")
+        console.print("[bold green][1] Registrar usuario[/bold green]")
+        console.print("[bold yellow][2] Iniciar sesión[/bold yellow]")
+        console.print("[bold red][3] Salir[/bold red]")
+
+        opcion = int(input(Fore.BLUE + "Seleccione una opción: "))
 
         if opcion == 1:
             register()  # Llamamos a la función de registro
