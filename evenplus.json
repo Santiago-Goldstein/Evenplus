@@ -53,68 +53,6 @@
             ]
         ]
     },
-    "Agustin": {
-        "username": "Agustin",
-        "password": "Agustin99",
-        "eventos": [],
-        "tareas": [],
-        "historial": [
-            [
-                "Evento",
-                "River",
-                "21",
-                "21"
-            ],
-            [
-                "Evento",
-                "Hola",
-                "das",
-                "das"
-            ],
-            [
-                "Evento",
-                "Dsada",
-                "dasdsa",
-                "dsadas"
-            ],
-            [
-                "Evento",
-                "Aguss",
-                "21",
-                "21"
-            ],
-            [
-                "Evento",
-                "Dsad",
-                "dasdsa",
-                "das"
-            ],
-            [
-                "Evento",
-                "Dsad",
-                "dsada",
-                "dasd"
-            ],
-            [
-                "Evento",
-                "Das",
-                "das",
-                "das"
-            ],
-            [
-                "Evento",
-                "\u001b",
-                "\u001b",
-                "\u001b"
-            ],
-            [
-                "Evento",
-                "1",
-                "1",
-                "1"
-            ]
-        ]
-    },
     "A": {
         "username": "A",
         "password": "A",
