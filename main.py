@@ -17,7 +17,7 @@ def cargar_datos():
 
 def guardar_datos():
     """ Guardar datos en el archivo JSON """
-    with open("/Users/agustingoldstein/Desktop/UADE/Progra 1/EventPlus/Evenplus/evenplus.json", "w") as archivo:
+    with open("C:/Users/santi/Desktop/Evenplus/evenplus.json", "w") as archivo:
         json.dump(usuarios, archivo, indent=4)
 
 usuarios = cargar_datos()
@@ -54,6 +54,7 @@ def insertar_eventos(username):
             agregar_a_historial(username, "Evento", titulo_evento, fecha_limite, descripcion)  # Agregar al historial
             guardar_datos()  # Guardar cambios
             console.print(f"\n[bold green][1] Evento '{titulo_evento}' guardado exitosamente. [/bold green]")
+            print(f"Evento '{titulo_evento}' guardado exitosamente.")
 
         elif tarea_evento == 2:
             print("Ingrese el nombre de la tarea:")
@@ -229,7 +230,9 @@ def ver_eventos_pendientes(username):
             print(f"{id_tarea + 1}. {tarea['titulo']} - {tarea['fecha_limite']} - {tarea['descripcion']}")
     
     else:
-        print("No hay eventos o tareas registrados.")
+        console.print("\n[bold red]---------------------------------------[/bold red]")
+        console.print("[bold red]| No hay eventos o tareas registrados |[/bold red]")
+        console.print("[bold red]---------------------------------------[/bold red]\n")
 
 
 def ver_proximos_eventos_lambda(username):
@@ -241,7 +244,9 @@ def ver_proximos_eventos_lambda(username):
     if proximo:
         console.print(f"\n[bold green][1] Próximo evento/tarea: {proximo['titulo']} - {proximo['fecha_limite']} - {proximo['descripcion']}. [/bold green]")
     else:
-        print("No hay eventos o tareas registrados.")
+        console.print("\n[bold red]---------------------------------------[/bold red]")
+        console.print("[bold red]| No hay eventos o tareas registrados |[/bold red]")
+        console.print("[bold red]---------------------------------------[/bold red]\n")
 
 
 def ver_historial(username):
@@ -252,7 +257,9 @@ def ver_historial(username):
             tipo, titulo, fecha_limite, descripcion = registro
             print(f"{tipo}: {titulo} - {fecha_limite} - {descripcion}")
     else:
-        print("No hay historial")
+        console.print("\n[bold red]--------------------[/bold red]")
+        console.print("[bold red]| No hay historial |[/bold red]")
+        console.print("[bold red]--------------------[/bold red]\n")
 
 
 def register():
@@ -290,8 +297,10 @@ def login():
             return usuario  # Retorna la clave del usuario en el diccionario
     
     """ Si no se encuentra el usuario o contraseña no coinciden """
-    print("\n----------------------------------------------------------------------------")
-    print("Su Nombre o Contraseña no se encuentra en la base de datos, Vuelva a intentarlo")
+    console.print("\n[bold red]-----------------------------------------------------------------------------------[/bold red]")
+    console.print("[bold red]| Su Nombre o Contraseña no se encuentra en la base de datos, Vuelva a intentarlo |[/bold red]")
+    console.print("[bold red]-----------------------------------------------------------------------------------[/bold red]")
+    print()
     return None
 
 
@@ -322,11 +331,14 @@ def menu_principal():
                 menu_usuario(usuario_logeado)  
 
         elif opcion == 3:
-            print("\n----------------------------------------------------------")
-            print("Saliendo de la aplicación... ¡Gracias por usar EvenPlus!\n")
+            console.print("[bold red]\n------------------------------------------------------------[/bold red]")
+            console.print("[bold red]| Saliendo de la aplicación... [bold green]¡Gracias por usar EvenPlus![/bold green] | [/bold red]")
+            console.print("[bold red]------------------------------------------------------------[/bold red]")
         
         else:
-            print("Opción inválida. Intente de nuevo.")
+            console.print("\n[bold red]--------------------------------------[/bold red]")
+            console.print("[bold red]| Opción inválida. Intente de nuevo. |[/bold red]")
+            console.print("[bold red]--------------------------------------[/bold red]\n")
 
 
 
@@ -379,7 +391,9 @@ def menu_usuario(username):
                 print("Cerrando sesión... ¡Vuelva Pronto!\n")
 
         else:
-            print("¡Error!, Por favor ingrese un numero del 1 al 7 ")
+            console.print("\n[bold red]---------------------------------------------------[/bold red]")
+            console.print("[bold red]| ¡Error!, Por favor ingrese un numero del 1 al 7 |[/bold red]")
+            console.print("[bold red]---------------------------------------------------[/bold red]")
 
 menu_principal()
 

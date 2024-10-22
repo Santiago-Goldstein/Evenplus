@@ -114,5 +114,12 @@
                 "1"
             ]
         ]
+    },
+    "A": {
+        "username": "A",
+        "password": "A",
+        "eventos": [],
+        "tareas": [],
+        "historial": []
     }
 }
