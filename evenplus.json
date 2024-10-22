@@ -30,5 +30,12 @@
                 "Preparar el reporte financiero trimestral"
             ]
         ]
+    },
+    "A": {
+        "username": "A",
+        "password": "A",
+        "eventos": [],
+        "tareas": [],
+        "historial": []
     }
 }

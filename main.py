@@ -1,24 +1,10 @@
 import json
-import os
 from colorama import Fore, init
 from rich.console import Console
 from pyfiglet import figlet_format
 
 init(autoreset=True)
 console = Console()
-
-def generar_espacios():
-    """Genera espacios en blanco para centrar un mensaje en el medio de la terminal."""
-    # Tamaño actual de la terminal
-    tamaño_terminal = os.get_terminal_size()
-    alto_terminal = tamaño_terminal.lines
-
-    # Calcular el número de líneas en blanco necesarias para centrar el mensaje
-    lineas_vacias_arriba = alto_terminal // 2
-
-    # Imprimir líneas en blanco antes del mensaje para centrarlo verticalmente
-    print('\n' * lineas_vacias_arriba)
-
 
 def cargar_datos():
     """ Cargar datos desde el archivo JSON """
@@ -31,7 +17,7 @@ def cargar_datos():
 
 def guardar_datos():
     """ Guardar datos en el archivo JSON """
-    with open("C:/Users/santi/Desktop/Progra 1/prueba/practica json/json_evenplus.json", "w") as archivo:
+    with open("C:/Users/santi/Desktop/Evenplus/evenplus.json", "w") as archivo:
         json.dump(usuarios, archivo, indent=4)
 
 usuarios = cargar_datos()
@@ -67,7 +53,6 @@ def insertar_eventos(username):
 
             agregar_a_historial(username, "Evento", titulo_evento, fecha_limite, descripcion)  # Agregar al historial
             guardar_datos()  # Guardar cambios
-            generar_espacios()
             print(f"Evento '{titulo_evento}' guardado exitosamente.")
 
         elif tarea_evento == 2:
@@ -85,12 +70,10 @@ def insertar_eventos(username):
 
             agregar_a_historial(username, "Tarea", titulo_tarea, fecha_limite, descripcion)  # Agregar al historial
             guardar_datos()  # Guardar cambios     
-            generar_espacios() # Espacios
             print(f"Tarea '{titulo_tarea}' guardada exitosamente.")
         else:
             print("Por favor elija una opción válida.")
 
-        generar_espacios()
         print("¿Desea seguir agregando eventos o tareas? escriba 'si' o 'no'")
         sigue = input("").lower()
 
@@ -243,7 +226,9 @@ def ver_eventos_pendientes(username):
             print(f"{id_tarea + 1}. {tarea['titulo']} - {tarea['fecha_limite']} - {tarea['descripcion']}")
     
     else:
-        print("No hay eventos o tareas registrados.")
+        console.print("\n[bold red]---------------------------------------[/bold red]")
+        console.print("[bold red]| No hay eventos o tareas registrados |[/bold red]")
+        console.print("[bold red]---------------------------------------[/bold red]\n")
 
 
 def ver_proximos_eventos_lambda(username):
@@ -255,7 +240,9 @@ def ver_proximos_eventos_lambda(username):
     if proximo:
         print(f"Próximo evento/tarea: {proximo['titulo']} - {proximo['fecha_limite']} - {proximo['descripcion']}")
     else:
-        print("No hay eventos o tareas registrados.")
+        console.print("\n[bold red]---------------------------------------[/bold red]")
+        console.print("[bold red]| No hay eventos o tareas registrados |[/bold red]")
+        console.print("[bold red]---------------------------------------[/bold red]\n")
 
 
 def ver_historial(username):
@@ -266,7 +253,9 @@ def ver_historial(username):
             tipo, titulo, fecha_limite, descripcion = registro
             print(f"{tipo}: {titulo} - {fecha_limite} - {descripcion}")
     else:
-        print("No hay historial")
+        console.print("\n[bold red]--------------------[/bold red]")
+        console.print("[bold red]| No hay historial |[/bold red]")
+        console.print("[bold red]--------------------[/bold red]\n")
 
 
 def register():
@@ -304,8 +293,10 @@ def login():
             return usuario  # Retorna la clave del usuario en el diccionario
     
     """ Si no se encuentra el usuario o contraseña no coinciden """
-    print("\n----------------------------------------------------------------------------")
-    print("Su Nombre o Contraseña no se encuentra en la base de datos, Vuelva a intentarlo")
+    console.print("\n[bold red]-----------------------------------------------------------------------------------[/bold red]")
+    console.print("[bold red]| Su Nombre o Contraseña no se encuentra en la base de datos, Vuelva a intentarlo |[/bold red]")
+    console.print("[bold red]-----------------------------------------------------------------------------------[/bold red]")
+    print()
     return None
 
 
@@ -333,11 +324,14 @@ def menu_principal():
                 menu_usuario(usuario_logeado)  # Si el login es exitoso, vamos al menú de usuario
 
         elif opcion == 3:
-            print("\n----------------------------------------------------------")
-            print("Saliendo de la aplicación... ¡Gracias por usar EvenPlus!\n")
+            console.print("[bold red]\n------------------------------------------------------------[/bold red]")
+            console.print("[bold red]| Saliendo de la aplicación... [bold green]¡Gracias por usar EvenPlus![/bold green] | [/bold red]")
+            console.print("[bold red]------------------------------------------------------------[/bold red]")
         
         else:
-            print("Opción inválida. Intente de nuevo.")
+            console.print("\n[bold red]--------------------------------------[/bold red]")
+            console.print("[bold red]| Opción inválida. Intente de nuevo. |[/bold red]")
+            console.print("[bold red]--------------------------------------[/bold red]\n")
 
 
 
@@ -388,7 +382,9 @@ def menu_usuario(username):
                 print("Cerrando sesión... ¡Vuelva Pronto!\n")
 
         else:
-            print("¡Error!, Por favor ingrese un numero del 1 al 7 ")
+            console.print("\n[bold red]---------------------------------------------------[/bold red]")
+            console.print("[bold red]| ¡Error!, Por favor ingrese un numero del 1 al 7 |[/bold red]")
+            console.print("[bold red]---------------------------------------------------[/bold red]")
 
 menu_principal()
 
