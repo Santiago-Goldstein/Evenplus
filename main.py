@@ -1,5 +1,4 @@
 import json
-import os
 from colorama import Fore, init
 from rich.console import Console
 from pyfiglet import figlet_format
@@ -311,13 +310,16 @@ def menu_principal():
         opcion = int(input(Fore.BLUE + "Seleccione una opción: "))
 
         if opcion == 1:
-            register()  # Llamamos a la función de registro
+            """ Llamamos a la función de registro """
+            register() 
 
         elif opcion == 2:
-            usuario_logeado = login()  # Llamamos a la función login y obtenemos la clave del usuario
+            """ Llamamos a la función login y obtenemos la clave del usuario """
+            usuario_logeado = login() 
 
             if usuario_logeado:
-                menu_usuario(usuario_logeado)  # Si el login es exitoso, vamos al menú de usuario
+                """ Si el login es exitoso, vamos al menú de usuario """
+                menu_usuario(usuario_logeado)  
 
         elif opcion == 3:
             print("\n----------------------------------------------------------")
