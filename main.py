@@ -9,7 +9,7 @@ console = Console()
 def cargar_datos():
     """ Cargar datos desde el archivo JSON """
     try:
-        with open("/Users/agustingoldstein/Desktop/UADE/Progra 1/EventPlus/Evenplus/evenplus.json", "r") as archivo:
+        with open("C:/Users/santi/Desktop/Evenplus/evenplus.json", "r") as archivo:
             return json.load(archivo)
     except FileNotFoundError:
         return {}
@@ -170,9 +170,13 @@ def modificar_eventos(username):
                 console.print(f"\n[bold green][1] Descripción de la tarea actualizada a '{nueva_descripcion}'. [/bold green]")
             
         else:
-            print("No hay tareas que modificar.")
+            console.print("\n[bold red]--------------------------------[/bold red]")
+            console.print("[bold red]| No hay tareas para modificar |[/bold red]")
+            console.print("[bold red]--------------------------------[/bold red]")
     else:
-        print("Por favor elija una opción válida.")
+        console.print("\n[bold red]-------------------------------------[/bold red]")
+        console.print("[bold red]| Por favor elija una opción válida |[/bold red]")
+        console.print("[bold red]-------------------------------------[/bold red]")
 
 
     
@@ -196,9 +200,11 @@ def eliminar_eventos(username):
             seleccion = int(input()) - 1
             evento_eliminado = usuarios[username]['eventos'].pop(seleccion)
             guardar_datos()  # Guardar cambios
-            console.print(f"\n[bold green][1] Se ha eliminado el evento '{evento_eliminado['titulo']}'. [/bold green]")
+            console.print(f"\n[bold green] Se ha eliminado el evento '{evento_eliminado['titulo']}'. [/bold green]")
         else:
-            print("No hay eventos que eliminar.")
+            console.print("\n[bold red]--------------------------------[/bold red]")
+            console.print("[bold red]| No hay eventos para eliminar |[/bold red]")
+            console.print("[bold red]--------------------------------[/bold red]")
 
     elif tarea_evento_eliminar == 2:
         if len(usuarios[username]['tareas']) != 0:
@@ -210,11 +216,15 @@ def eliminar_eventos(username):
             seleccion = int(input()) - 1
             tarea_eliminada = usuarios[username]['tareas'].pop(seleccion)
             guardar_datos()  # Guardar cambios
-            console.print(f"\n[bold green][1] Se ha eliminado la tarea '{tarea_eliminada['titulo']}'. [/bold green]")
+            console.print(f"\n[bold green] Se ha eliminado la tarea '{tarea_eliminada['titulo']}'. [/bold green]")
         else:
-            print("No hay tareas que eliminar.")
+            console.print("\n[bold red]-------------------------------[/bold red]")
+            console.print("[bold red]| No hay tareas para eliminar |[/bold red]")
+            console.print("[bold red]-------------------------------[/bold red]")
     else:
-        print("Por favor elija una opción válida.")
+        console.print("\n[bold red]--------------------------------------[/bold red]")
+        console.print("[bold red]| Por favor, elija una opción válida |[/bold red]")
+        console.print("[bold red]--------------------------------------[/bold red]")
 
     
 
