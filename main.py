@@ -277,10 +277,12 @@ def ver_historial(username):
 
 def register():
     """ Funcion para registrarse en la app """
-    print("\n¡Regístrese!\n")
-    register_usuario = input("Ingrese un usuario para registrarse: ").lower().capitalize()
-    register_contra = input("Ingrese una contraseña: ").lower().capitalize()
 
+    console.print("[bold green]\n----------------------------[/bold green]")
+    console.print("[bold green]| ***** ¡Regístrese! ***** |[/bold green]")
+    console.print("[bold green]---------------------------- \n[/bold green]")
+    register_usuario = console.input("[bold green] Ingrese un usuario para registrarse: [/bold green]").lower().capitalize()
+    register_contra = console.input("\n[bold green] Ingrese una contraseña: [/bold green]").lower().capitalize()
     usuarios[register_usuario] = {
         "username": register_usuario,
         "password": register_contra,
@@ -297,16 +299,19 @@ def register():
 
 def login():
     """ Inicio de sesión a la aplicación """
-    print("\n***** Inicio de sesión *****\n")
-    username = input("Ingrese su usuario para iniciar sesión:\n").lower().capitalize()
-    password = input("Ingrese su contraseña:\n").lower().capitalize()
+
+    console.print("[bold yellow]\n--------------------------------[/bold yellow]")
+    console.print("[bold yellow]| ***** Inicio de sesión ***** |[/bold yellow]")
+    console.print("[bold yellow]-------------------------------- \n[/bold yellow]")
+    username = input(Fore.YELLOW + "Ingrese su usuario para iniciar sesión:\n").lower().capitalize()
+    password = input(Fore.YELLOW + "\nIngrese su contraseña:\n").lower().capitalize()
 
     """ Verificamos si el usuario existe en el diccionario """
     for usuario, datos in usuarios.items():
         if datos['username'] == username and datos['password'] == password:
-            console.print("[bold green]------------------------------[/bold green]")
+            console.print("\n[bold green]------------------------------[/bold green]")
             console.print("[bold green]| Inicio de Sesión ¡Exitoso! |[/bold green]")
-            console.print("[bold green]------------------------------[/bold green]")
+            console.print("[bold green]------------------------------[/bold green]\n")
             return usuario  # Retorna la clave del usuario en el diccionario
     
     """ Si no se encuentra el usuario o contraseña no coinciden """
