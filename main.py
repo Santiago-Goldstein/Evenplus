@@ -2,22 +2,34 @@ import json
 from colorama import Fore, init
 from rich.console import Console
 from pyfiglet import figlet_format
+import os
 
 init(autoreset=True)
 console = Console()
 
+# Obtener el directorio base del proyecto (donde se encuentra main.py)
+base_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Ruta al archivo JSON en la misma carpeta
+json_path = os.path.join(base_dir, 'evenplus.json')
+
+
 def cargar_datos():
     """ Cargar datos desde el archivo JSON """
     try:
-        with open("C:/Users/santi/Desktop/Evenplus/evenplus.json", "r") as archivo:
+        with open(json_path, "r", encoding="utf-8") as archivo:
             return json.load(archivo)
     except FileNotFoundError:
+        print(f"No se encontró el archivo JSON en {json_path}.")
+        return {}
+    except json.JSONDecodeError:
+        print("Error al decodificar el archivo JSON.")
         return {}
 
 
 def guardar_datos():
     """ Guardar datos en el archivo JSON """
-    with open("C:/Users/santi/Desktop/Evenplus/evenplus.json", "w") as archivo:
+    with open(json_path, "w", encoding="utf-8") as archivo:
         json.dump(usuarios, archivo, indent=4)
 
 usuarios = cargar_datos()
