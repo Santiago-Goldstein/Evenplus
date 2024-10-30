@@ -43,7 +43,7 @@ def insertar_eventos(username):
     """ Inserta eventos o tareas para el usuario logueado """
     evento_usuario = True
     while evento_usuario:
-        print("¿Qué quiere insertar?:")
+        console.print("[bold green]¿Qué quiere insertar?:[/bold green]")
         print("""
     (1) Para insertar un Evento
     (2) Para insertar una Tarea
@@ -380,18 +380,18 @@ def menu_usuario(username):
         print(Fore.CYAN + "Bienvenido a EvenPlus ", end="")
         console.print(f"{username}", style="bold yellow", end="")
         print(Fore.CYAN + ", tu App para gestionar eventos y tareas.")
-        print(Fore.CYAN + """
-    Elija la opción que desee:
-    (1) Insertar un Evento
-    (2) Eliminar un Evento
-    (3) Modificar un Evento
-    (4) Ver Eventos Pendientes
-    (5) Ver Próximos Eventos 
-    (6) Ver Historial
-    (7) Cerrar sesión
+        print(Fore.CYAN + "Elija la opción que desee:")
+        console.print("""
+    [bold red](1)[/bold red] Insertar un Evento
+    [bold red](2)[/bold red] Eliminar un Evento
+    [bold red](3)[/bold red] Modificar un Evento
+    [bold red](4)[/bold red] Ver Eventos Pendientes
+    [bold red](5)[/bold red] Ver Próximos Eventos 
+    [bold red](6)[/bold red] Ver Historial
+    [bold red](7)[/bold red] Cerrar sesión
     """)
         
-        usuario_main = int(input("Ingrese el numero de la opción que desea realizar: "))
+        usuario_main = int(input(Fore.CYAN + "Ingrese el numero de la opción que desea realizar: "))
         if usuario_main == 1:
             """ def insertar """
             insertar_eventos(username)
