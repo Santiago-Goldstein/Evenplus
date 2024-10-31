@@ -34,9 +34,9 @@ def guardar_datos():
 
 usuarios = cargar_datos()
 
-def agregar_a_historial(username, tipo, titulo, fecha_limite, descripcion):
+def agregar_a_historial(username, tipo, titulo, fecha_limite):
     """ Agrega un nuevo registro al historial del usuario """
-    usuarios[username]['historial'].append([tipo, titulo, fecha_limite, descripcion])
+    usuarios[username]['historial'].append([tipo, titulo, fecha_limite])
 
 
 def insertar_eventos(username):
@@ -54,7 +54,7 @@ def insertar_eventos(username):
         if tarea_evento == 1:
             console.print("\n[bold white]Ingrese el nombre del evento:[/bold white]")
             titulo_evento = input(Fore.CYAN + "").lower().capitalize()
-            console.print("\n[bold white]Ingrese la fecha del evento (Dia-Mes-Año):[/bold white]")
+            console.print("\n[bold white]Ingrese la fecha del evento [bold cyan](Dia-Mes-Año)[/bold cyan]:[/bold white]")
             fecha_limite = input(Fore.CYAN + "")
             console.print("\n[bold white]Ingrese la descripción del evento:[/bold white]")
             descripcion = input(Fore.CYAN + "")
@@ -64,14 +64,14 @@ def insertar_eventos(username):
                 "descripcion": descripcion
             })
 
-            agregar_a_historial(username, "Evento", titulo_evento, fecha_limite, descripcion)  # Agregar al historial
+            agregar_a_historial(username, "Evento", titulo_evento, fecha_limite)  # Agregar al historial
             guardar_datos()  # Guardar cambios
             console.print(f"\n[bold green] Evento '{titulo_evento}' guardado exitosamente. [/bold green]")
 
         elif tarea_evento == 2:
             console.print("\n[bold white]Ingrese el nombre de la tarea:[/bold white]")
             titulo_tarea = input(Fore.CYAN + "").lower().capitalize()
-            console.print("\n[bold white]Ingrese la fecha de la tarea (Dia-Mes-Año):[/bold white]")
+            console.print("\n[bold white]Ingrese la fecha de la tarea [bold cyan](Dia-Mes-Año)[/bold cyan]:[/bold white]")
             fecha_limite = input(Fore.CYAN + "")
             console.print("\n[bold white]Ingrese la descripción de la tarea:[/bold white]")
             descripcion = input(Fore.CYAN + "")
@@ -81,7 +81,7 @@ def insertar_eventos(username):
                 "descripcion": descripcion
             })
 
-            agregar_a_historial(username, "Tarea", titulo_tarea, fecha_limite, descripcion)  # Agregar al historial
+            agregar_a_historial(username, "Tarea", titulo_tarea, fecha_limite)  # Agregar al historial
             guardar_datos()  # Guardar cambios     
             console.print(f"\n[bold green] Tarea '{titulo_tarea}' guardada exitosamente. [/bold green]")
         else:
@@ -259,13 +259,15 @@ def eliminar_eventos(username):
 def ver_eventos_pendientes(username):
     """ Muestra los eventos y tareas del usuario logueado """
     if len(usuarios[username]['eventos']) != 0 or len(usuarios[username]['tareas']) != 0:
-        print(f"\nEventos registrados de {username}:")
+        console.print(f"\n[bold cyan]Eventos registrados de {username}:[/bold cyan]\n")
         for id_even, evento in enumerate(usuarios[username]['eventos']):
-            print(f"{id_even + 1}. {evento['titulo']} - {evento['fecha_limite']} - {evento['descripcion']}")
+            console.print(f"[bold cyan]{id_even + 1}.[/bold cyan] [bold white]{evento['titulo']} - {evento['fecha_limite']} - {evento['descripcion']}[/bold white]")
+            print("---------------------------------------------------------------------------------------------")
         
-        print(f"\nTareas registradas de {username}:")
+        console.print(f"\n[bold cyan]Tareas registradas de {username}:[/bold cyan]\n")
         for id_tarea, tarea in enumerate(usuarios[username]['tareas']):
-            print(f"{id_tarea + 1}. {tarea['titulo']} - {tarea['fecha_limite']} - {tarea['descripcion']}")
+            console.print(f"[bold cyan]{id_tarea + 1}.[/bold cyan] [bold white]{tarea['titulo']} - {tarea['fecha_limite']} - {tarea['descripcion']}[/bold white]")
+            print("---------------------------------------------------------------------------------------------")
     
     else:
         console.print("\n[bold red]---------------------------------------[/bold red]")
@@ -274,13 +276,13 @@ def ver_eventos_pendientes(username):
 
 
 def ver_proximos_eventos_lambda(username):
-    print(f"\nFunción en desarrollo: Próximos eventos de {username}")
+    console.print(f"\n[bold yellow]Función en desarrollo:[/bold yellow] [bold white]Próximos eventos de {username}[/bold white]")
     obtener_evento = lambda eventos, tareas: eventos[0] if eventos else (tareas[0] if tareas else None)
     proximo = obtener_evento(usuarios[username]['eventos'], usuarios[username]['tareas'])
 
     """ Mostrar eventos próximos """
     if proximo:
-        console.print(f"\n[bold green][1] Próximo evento/tarea: {proximo['titulo']} - {proximo['fecha_limite']} - {proximo['descripcion']}. [/bold green]")
+        console.print(f"\n[bold cyan][1][/bold cyan] [bold white]Próximo evento/tarea: {proximo['titulo']} - {proximo['fecha_limite']} - {proximo['descripcion']}.[/bold white]")
     else:
         console.print("\n[bold red]---------------------------------------[/bold red]")
         console.print("[bold red]| No hay eventos o tareas registrados |[/bold red]")
@@ -290,10 +292,11 @@ def ver_proximos_eventos_lambda(username):
 def ver_historial(username):
     """ Funcion que muestra el historial de el usuario logueado """
     if len(usuarios[username]['historial']) != 0:
-        print("\nHistorial de Eventos y Tareas:")
+        console.print("\n[bold cyan]Historial de Eventos y Tareas:[/bold cyan]\n")
         for registro in usuarios[username]['historial']:
-            tipo, titulo, fecha_limite, descripcion = registro
-            print(f"{tipo}: {titulo} - {fecha_limite} - {descripcion}")
+            tipo, titulo, fecha_limite, *_ = registro # El *_ sirve para ignorar las descripciones que vienen de la base de datos
+            console.print(f"[bold cyan]{tipo}[/bold cyan][bold white]: {titulo} - {fecha_limite}[/bold white]")
+            print("----------------------------------------------")
     else:
         console.print("\n[bold red]--------------------[/bold red]")
         console.print("[bold red]| No hay historial |[/bold red]")
