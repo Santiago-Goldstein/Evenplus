@@ -70,6 +70,12 @@ def insertar_eventos(username):
                 guardar_datos()  # Guardar cambios
                 console.print(f"\n[bold green] Evento '{titulo_evento}' guardado exitosamente. [/bold green]")
 
+                console.print("\n[bold yellow] ¿Desea seguir agregando eventos o tareas? escriba 'si' o 'no'[/bold yellow]")
+                sigue = input(Fore.CYAN + "").lower()
+
+                if sigue != "si":
+                    evento_usuario = False
+
             elif tarea_evento == 2:
                 console.print("\n[bold white]Ingrese el nombre de la tarea:[/bold white]")
                 titulo_tarea = input(Fore.CYAN + "").lower().capitalize()
@@ -86,21 +92,21 @@ def insertar_eventos(username):
                 agregar_a_historial(username, "Tarea", titulo_tarea, fecha_limite)  # Agregar al historial
                 guardar_datos()  # Guardar cambios     
                 console.print(f"\n[bold green] Tarea '{titulo_tarea}' guardada exitosamente. [/bold green]")
+                
+                console.print("\n[bold yellow] ¿Desea seguir agregando eventos o tareas? escriba 'si' o 'no'[/bold yellow]")
+                sigue = input(Fore.CYAN + "").lower()
+
+                if sigue != "si":
+                    evento_usuario = False
             else:
                 console.print("\n[bold red]-------------------------------------[/bold red]")
                 console.print("[bold red]| Por favor elija una opción válida |[/bold red]")
                 console.print("[bold red]-------------------------------------[/bold red]")
-        
-        
-            console.print("\n[bold yellow] ¿Desea seguir agregando eventos o tareas? escriba 'si' o 'no'[/bold yellow]")
-            sigue = input(Fore.CYAN + "").lower()
 
-            if sigue != "si":
-                evento_usuario = False
         except ValueError:
             console.print("\n[bold red]-------------------------------------[/bold red]")
             console.print("[bold red]| ¡Por favor, ingrese solo NUMEROS! |[/bold red]")
-            console.print("[bold red]-------------------------------------[/bold red]\n")
+            console.print("[bold red]-------------------------------------[/bold red]\n")      
 
 
 def modificar_eventos(username):
