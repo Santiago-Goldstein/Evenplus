@@ -43,58 +43,64 @@ def insertar_eventos(username):
     """ Inserta eventos o tareas para el usuario logueado """
     evento_usuario = True
     while evento_usuario:
-        console.print("[bold green]¿Qué quiere insertar?:[/bold green]")
-        console.print("""
-    [bold cyan](1)[/bold cyan] [bold white]Para insertar un[/bold white] [bold cyan]Evento[/bold cyan]
-                      
-    [bold cyan](2)[/bold cyan] [bold white]Para insertar una[/bold white] [bold cyan]Tarea[/bold cyan]
-    """)
-        tarea_evento = int(input())
+        try:
+                
+            console.print("[bold green]¿Qué quiere insertar?:[/bold green]")
+            console.print("""
+        [bold cyan](1)[/bold cyan] [bold white]Para insertar un[/bold white] [bold cyan]Evento[/bold cyan]
+                        
+        [bold cyan](2)[/bold cyan] [bold white]Para insertar una[/bold white] [bold cyan]Tarea[/bold cyan]
+        """)
+            tarea_evento = int(input())
+            
+            if tarea_evento == 1:
+                console.print("\n[bold white]Ingrese el nombre del evento:[/bold white]")
+                titulo_evento = input(Fore.CYAN + "").lower().capitalize()
+                console.print("\n[bold white]Ingrese la fecha del evento [bold cyan](Dia-Mes-Año)[/bold cyan]:[/bold white]")
+                fecha_limite = input(Fore.CYAN + "")
+                console.print("\n[bold white]Ingrese la descripción del evento:[/bold white]")
+                descripcion = input(Fore.CYAN + "")
+                usuarios[username]['eventos'].append({
+                    "titulo": titulo_evento,
+                    "fecha_limite": fecha_limite,
+                    "descripcion": descripcion
+                })
+
+                agregar_a_historial(username, "Evento", titulo_evento, fecha_limite)  # Agregar al historial
+                guardar_datos()  # Guardar cambios
+                console.print(f"\n[bold green] Evento '{titulo_evento}' guardado exitosamente. [/bold green]")
+
+            elif tarea_evento == 2:
+                console.print("\n[bold white]Ingrese el nombre de la tarea:[/bold white]")
+                titulo_tarea = input(Fore.CYAN + "").lower().capitalize()
+                console.print("\n[bold white]Ingrese la fecha de la tarea [bold cyan](Dia-Mes-Año)[/bold cyan]:[/bold white]")
+                fecha_limite = input(Fore.CYAN + "")
+                console.print("\n[bold white]Ingrese la descripción de la tarea:[/bold white]")
+                descripcion = input(Fore.CYAN + "")
+                usuarios[username]['tareas'].append({
+                    "titulo": titulo_tarea,
+                    "fecha_limite": fecha_limite,
+                    "descripcion": descripcion
+                })
+
+                agregar_a_historial(username, "Tarea", titulo_tarea, fecha_limite)  # Agregar al historial
+                guardar_datos()  # Guardar cambios     
+                console.print(f"\n[bold green] Tarea '{titulo_tarea}' guardada exitosamente. [/bold green]")
+            else:
+                console.print("\n[bold red]-------------------------------------[/bold red]")
+                console.print("[bold red]| Por favor elija una opción válida |[/bold red]")
+                console.print("[bold red]-------------------------------------[/bold red]")
         
-        if tarea_evento == 1:
-            console.print("\n[bold white]Ingrese el nombre del evento:[/bold white]")
-            titulo_evento = input(Fore.CYAN + "").lower().capitalize()
-            console.print("\n[bold white]Ingrese la fecha del evento [bold cyan](Dia-Mes-Año)[/bold cyan]:[/bold white]")
-            fecha_limite = input(Fore.CYAN + "")
-            console.print("\n[bold white]Ingrese la descripción del evento:[/bold white]")
-            descripcion = input(Fore.CYAN + "")
-            usuarios[username]['eventos'].append({
-                "titulo": titulo_evento,
-                "fecha_limite": fecha_limite,
-                "descripcion": descripcion
-            })
+        
+            console.print("\n[bold yellow] ¿Desea seguir agregando eventos o tareas? escriba 'si' o 'no'[/bold yellow]")
+            sigue = input(Fore.CYAN + "").lower()
 
-            agregar_a_historial(username, "Evento", titulo_evento, fecha_limite)  # Agregar al historial
-            guardar_datos()  # Guardar cambios
-            console.print(f"\n[bold green] Evento '{titulo_evento}' guardado exitosamente. [/bold green]")
-
-        elif tarea_evento == 2:
-            console.print("\n[bold white]Ingrese el nombre de la tarea:[/bold white]")
-            titulo_tarea = input(Fore.CYAN + "").lower().capitalize()
-            console.print("\n[bold white]Ingrese la fecha de la tarea [bold cyan](Dia-Mes-Año)[/bold cyan]:[/bold white]")
-            fecha_limite = input(Fore.CYAN + "")
-            console.print("\n[bold white]Ingrese la descripción de la tarea:[/bold white]")
-            descripcion = input(Fore.CYAN + "")
-            usuarios[username]['tareas'].append({
-                "titulo": titulo_tarea,
-                "fecha_limite": fecha_limite,
-                "descripcion": descripcion
-            })
-
-            agregar_a_historial(username, "Tarea", titulo_tarea, fecha_limite)  # Agregar al historial
-            guardar_datos()  # Guardar cambios     
-            console.print(f"\n[bold green] Tarea '{titulo_tarea}' guardada exitosamente. [/bold green]")
-        else:
+            if sigue != "si":
+                evento_usuario = False
+        except ValueError:
             console.print("\n[bold red]-------------------------------------[/bold red]")
-            console.print("[bold red]| Por favor elija una opción válida |[/bold red]")
-            console.print("[bold red]-------------------------------------[/bold red]")
-
-        
-        console.print("\n[bold yellow] ¿Desea seguir agregando eventos o tareas? escriba 'si' o 'no'[/bold yellow]")
-        sigue = input(Fore.CYAN + "").lower()
-
-        if sigue != "si":
-            evento_usuario = False
+            console.print("[bold red]| ¡Por favor, ingrese solo NUMEROS! |[/bold red]")
+            console.print("[bold red]-------------------------------------[/bold red]\n")
 
 
 def modificar_eventos(username):
@@ -356,36 +362,40 @@ def menu_principal():
     """ Menú principal de la aplicación """
     opcion = 0
     while opcion != 3:
-        print(Fore.CYAN + figlet_format("Evenplus App"))
-        print(Fore.BLUE + "\n***** Menú Principal *****\n\n")
-        console.print("[bold green][1] Registrar usuario[/bold green]\n")
-        console.print("[bold yellow][2] Iniciar sesión[/bold yellow]\n")
-        console.print("[bold red][3] Salir[/bold red]\n\n")
+        try:
+            print(Fore.CYAN + figlet_format("Evenplus App"))
+            print(Fore.BLUE + "\n***** Menú Principal *****\n\n")
+            console.print("[bold green][1] Registrar usuario[/bold green]\n")
+            console.print("[bold yellow][2] Iniciar sesión[/bold yellow]\n")
+            console.print("[bold red][3] Salir[/bold red]\n\n")
 
-        opcion = int(input(Fore.BLUE + "Seleccione una opción: "))
+            opcion = int(input(Fore.BLUE + "Seleccione una opción: "))
 
-        if opcion == 1:
-            """ Llamamos a la función de registro """
-            register() 
+            if opcion == 1:
+                """ Llamamos a la función de registro """
+                register() 
 
-        elif opcion == 2:
-            """ Llamamos a la función login y obtenemos la clave del usuario """
-            usuario_logeado = login() 
+            elif opcion == 2:
+                """ Llamamos a la función login y obtenemos la clave del usuario """
+                usuario_logeado = login() 
 
-            if usuario_logeado:
-                """ Si el login es exitoso, vamos al menú de usuario """
-                menu_usuario(usuario_logeado)  
+                if usuario_logeado:
+                    """ Si el login es exitoso, vamos al menú de usuario """
+                    menu_usuario(usuario_logeado)  
 
-        elif opcion == 3:
-            console.print("[bold white]\n------------------------------------------------------------[/bold white]")
-            console.print("[bold white]| Saliendo de la aplicación... [bold green]¡Gracias por usar EvenPlus![/bold green] | [/bold white]")
-            console.print("[bold white]------------------------------------------------------------[/bold white]\n")
-        
-        else:
-            console.print("\n[bold red]--------------------------------------[/bold red]")
-            console.print("[bold red]| Opción inválida. Intente de nuevo. |[/bold red]")
-            console.print("[bold red]--------------------------------------[/bold red]\n")
-
+            elif opcion == 3:
+                console.print("[bold white]\n------------------------------------------------------------[/bold white]")
+                console.print("[bold white]| Saliendo de la aplicación... [bold green]¡Gracias por usar EvenPlus![/bold green] | [/bold white]")
+                console.print("[bold white]------------------------------------------------------------[/bold white]\n")
+            
+            else:
+                console.print("\n[bold red]--------------------------------------[/bold red]")
+                console.print("[bold red]| Opción inválida. Intente de nuevo. |[/bold red]")
+                console.print("[bold red]--------------------------------------[/bold red]\n")
+        except ValueError:
+            console.print("\n[bold red]-------------------------------------[/bold red]")
+            console.print("[bold red]| ¡Por favor, ingrese solo NUMEROS! |[/bold red]")
+            console.print("[bold red]-------------------------------------[/bold red]\n")
 
 
 
@@ -393,63 +403,68 @@ def menu_usuario(username):
     """ El usuario logeado debera elegir la accion que desee. """
     usuario_main = 0
     while usuario_main != 7:
-        print(Fore.CYAN + "\nBienvenido a EvenPlus ", end="")
-        console.print(f"{username}", style="bold yellow", end="")
-        print(Fore.CYAN + ", tu App para gestionar eventos y tareas.")
-        print(Fore.CYAN + "Elija la opción que desee:")
-        console.print("""
-    
-    | [bold cyan](1)[/bold cyan] [bold white]Insertar un Evento[/bold white]     |
-    |----------------------------|
-    | [bold cyan](2)[/bold cyan] [bold white]Eliminar un Evento[/bold white]     |
-    |----------------------------|
-    | [bold cyan](3)[/bold cyan] [bold white]Modificar un Evento[/bold white]    |
-    |----------------------------|
-    | [bold cyan](4)[/bold cyan] [bold white]Ver Eventos Pendientes[/bold white] |
-    |----------------------------|
-    | [bold cyan](5)[/bold cyan] [bold white]Ver Próximos Eventos[/bold white]   |
-    |----------------------------|
-    | [bold cyan](6)[/bold cyan] [bold white]Ver Historial[/bold white]          |
-    |----------------------------|
-    | [bold cyan](7)[/bold cyan] [bold white]Cerrar sesión[/bold white]          |
-    
-    """)
+        try:
+            print(Fore.CYAN + "\nBienvenido a EvenPlus ", end="")
+            console.print(f"{username}", style="bold yellow", end="")
+            print(Fore.CYAN + ", tu App para gestionar eventos y tareas.")
+            print(Fore.CYAN + "Elija la opción que desee:")
+            console.print("""
         
-        usuario_main = int(input(Fore.CYAN + "Ingrese el numero de la opción que desea realizar: "))
-        if usuario_main == 1:
-            """ def insertar """
-            insertar_eventos(username)
-
-        elif usuario_main == 2:
-            """ def eliminar """
-            eliminar_eventos(username)
-
-        elif usuario_main == 3:
-            """ def modificar """
-            modificar_eventos(username)
-            
-        elif usuario_main == 4:
-            """ def ver eventos pedientes """
-            ver_eventos_pendientes(username)
-            
-        elif usuario_main == 5:
-            """ def ver proximos eventos """
-            ver_proximos_eventos_lambda(username)
-
-        elif usuario_main == 6:
-            """ def ver historial """
-            ver_historial(username)
+        | [bold cyan](1)[/bold cyan] [bold white]Insertar un Evento[/bold white]     |
+        |----------------------------|
+        | [bold cyan](2)[/bold cyan] [bold white]Eliminar un Evento[/bold white]     |
+        |----------------------------|
+        | [bold cyan](3)[/bold cyan] [bold white]Modificar un Evento[/bold white]    |
+        |----------------------------|
+        | [bold cyan](4)[/bold cyan] [bold white]Ver Eventos Pendientes[/bold white] |
+        |----------------------------|
+        | [bold cyan](5)[/bold cyan] [bold white]Ver Próximos Eventos[/bold white]   |
+        |----------------------------|
+        | [bold cyan](6)[/bold cyan] [bold white]Ver Historial[/bold white]          |
+        |----------------------------|
+        | [bold cyan](7)[/bold cyan] [bold white]Cerrar sesión[/bold white]          |
         
-        elif usuario_main == 7:
-                print("Cerrando sesión... ¡Vuelva Pronto!\n")
-                console.print("\n[bold yellow]--------------------------------------[/bold yellow]")
-                console.print("[bold yellow]| Cerrando sesión... ¡Vuelva Pronto! |[/bold yellow]")
-                console.print("[bold yellow]--------------------------------------[/bold yellow]\n")
+        """)
+            
+            usuario_main = int(input(Fore.CYAN + "Ingrese el numero de la opción que desea realizar: "))
+            if usuario_main == 1:
+                """ def insertar """
+                insertar_eventos(username)
 
-        else:
-            console.print("\n[bold red]---------------------------------------------------[/bold red]")
-            console.print("[bold red]| ¡Error!, Por favor ingrese un numero del 1 al 7 |[/bold red]")
-            console.print("[bold red]---------------------------------------------------[/bold red]")
+            elif usuario_main == 2:
+                """ def eliminar """
+                eliminar_eventos(username)
+
+            elif usuario_main == 3:
+                """ def modificar """
+                modificar_eventos(username)
+                
+            elif usuario_main == 4:
+                """ def ver eventos pedientes """
+                ver_eventos_pendientes(username)
+                
+            elif usuario_main == 5:
+                """ def ver proximos eventos """
+                ver_proximos_eventos_lambda(username)
+
+            elif usuario_main == 6:
+                """ def ver historial """
+                ver_historial(username)
+            
+            elif usuario_main == 7:
+                    print("Cerrando sesión... ¡Vuelva Pronto!\n")
+                    console.print("\n[bold yellow]--------------------------------------[/bold yellow]")
+                    console.print("[bold yellow]| Cerrando sesión... ¡Vuelva Pronto! |[/bold yellow]")
+                    console.print("[bold yellow]--------------------------------------[/bold yellow]\n")
+
+            else:
+                console.print("\n[bold red]---------------------------------------------------[/bold red]")
+                console.print("[bold red]| ¡Error!, Por favor ingrese un numero del 1 al 7 |[/bold red]")
+                console.print("[bold red]---------------------------------------------------[/bold red]")
+        except ValueError:
+            console.print("\n[bold red]-------------------------------------[/bold red]")
+            console.print("[bold red]| ¡Por favor, ingrese solo NUMEROS! |[/bold red]")
+            console.print("[bold red]-------------------------------------[/bold red]\n")
 
 menu_principal()
 
