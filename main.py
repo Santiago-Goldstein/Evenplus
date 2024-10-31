@@ -44,19 +44,20 @@ def insertar_eventos(username):
     evento_usuario = True
     while evento_usuario:
         console.print("[bold green]¿Qué quiere insertar?:[/bold green]")
-        print("""
-    (1) Para insertar un Evento
-    (2) Para insertar una Tarea
+        console.print("""
+    [bold cyan](1)[/bold cyan] [bold white]Para insertar un[/bold white] [bold cyan]Evento[/bold cyan]
+                      
+    [bold cyan](2)[/bold cyan] [bold white]Para insertar una[/bold white] [bold cyan]Tarea[/bold cyan]
     """)
         tarea_evento = int(input())
         
         if tarea_evento == 1:
-            print("Ingrese el nombre del evento:")
-            titulo_evento = input("").lower().capitalize()
-            print("Ingrese la fecha del evento (Dia-Mes-Año):")
-            fecha_limite = input("")
-            print("Ingrese la descripción del evento:")
-            descripcion = input("")
+            console.print("\n[bold white]Ingrese el nombre del evento:[/bold white]")
+            titulo_evento = input(Fore.CYAN + "").lower().capitalize()
+            console.print("\n[bold white]Ingrese la fecha del evento (Dia-Mes-Año):[/bold white]")
+            fecha_limite = input(Fore.CYAN + "")
+            console.print("\n[bold white]Ingrese la descripción del evento:[/bold white]")
+            descripcion = input(Fore.CYAN + "")
             usuarios[username]['eventos'].append({
                 "titulo": titulo_evento,
                 "fecha_limite": fecha_limite,
@@ -68,12 +69,12 @@ def insertar_eventos(username):
             console.print(f"\n[bold green] Evento '{titulo_evento}' guardado exitosamente. [/bold green]")
 
         elif tarea_evento == 2:
-            print("Ingrese el nombre de la tarea:")
-            titulo_tarea = input("").lower().capitalize()
-            print("Ingrese la fecha de la tarea (Dia-Mes-Año):")
-            fecha_limite = input("")
-            print("Ingrese la descripción de la tarea:")
-            descripcion = input("")
+            console.print("\n[bold white]Ingrese el nombre de la tarea:[/bold white]")
+            titulo_tarea = input(Fore.CYAN + "").lower().capitalize()
+            console.print("\n[bold white]Ingrese la fecha de la tarea (Dia-Mes-Año):[/bold white]")
+            fecha_limite = input(Fore.CYAN + "")
+            console.print("\n[bold white]Ingrese la descripción de la tarea:[/bold white]")
+            descripcion = input(Fore.CYAN + "")
             usuarios[username]['tareas'].append({
                 "titulo": titulo_tarea,
                 "fecha_limite": fecha_limite,
@@ -90,7 +91,7 @@ def insertar_eventos(username):
 
         
         console.print("\n[bold yellow] ¿Desea seguir agregando eventos o tareas? escriba 'si' o 'no'[/bold yellow]")
-        sigue = input("").lower()
+        sigue = input(Fore.CYAN + "").lower()
 
         if sigue != "si":
             evento_usuario = False
@@ -98,45 +99,51 @@ def insertar_eventos(username):
 
 def modificar_eventos(username):
     """ Te permite modificar eventos, tareas y descripciones """
-    print("¿Qué quiere modificar?:")
-    print("""
-    (1) Para modificar un Evento
-    (2) Para modificar una Tarea
+    console.print("[bold yellow]¿Qué quiere modificar?:[/bold yellow]")
+    console.print("""
+    [bold cyan](1)[/bold cyan] [bold white]Para modificar un[/bold white] [bold cyan]Evento[/bold cyan]
+                      
+    [bold cyan](2)[/bold cyan] [bold white]Para modificar una[/bold white] [bold cyan]Tarea[/bold cyan]
     """)
     tarea_evento_modificar = int(input())
 
     if tarea_evento_modificar == 1:
         if len(usuarios[username]['eventos']) != 0:
-            print("Eventos que puedes modificar:")
+            console.print("\n[bold white]Eventos que puedes modificar:[/bold white]\n")
             for id_even, evento in enumerate(usuarios[username]['eventos']):
-                print(f"{id_even + 1}. {evento['titulo']} - {evento['fecha_limite']} - {evento['descripcion']}")
+                console.print(f"[bold cyan]{id_even + 1}.[/bold cyan] [bold white]{evento['titulo']} - {evento['fecha_limite']} - {evento['descripcion']}[/bold white]")
 
-            print("\nIngrese el número del evento a modificar:")
+            console.print("\n[bold cyan]Ingrese el número del evento a modificar:[/bold cyan]")
             seleccion = int(input()) - 1
             evento_seleccionado = usuarios[username]['eventos'][seleccion]
             
-            print("¿Qué desea modificar?")
-            print("""
-            (1) Título
-            (2) Fecha límite
-            (3) Descripción
-            """)
+            console.print("\n[bold cyan]¿Qué desea modificar?[/bold cyan]")
+            console.print("""
+    [bold cyan](1)[/bold cyan] [bold white]Título[/bold white]
+                          
+    [bold cyan](2)[/bold cyan] [bold white]Fecha límite[/bold white]
+                          
+    [bold cyan](3)[/bold cyan] [bold white]Descripción[/bold white]
+    """)
             opcion_modificar = int(input())
 
             if opcion_modificar == 1:
-                nuevo_titulo = input("Ingrese el nuevo título: ").lower().capitalize()
+                console.print("[bold white]Ingrese el nuevo título: [/bold white]")
+                nuevo_titulo = input(Fore.CYAN + "").lower().capitalize()
                 evento_seleccionado['titulo'] = nuevo_titulo
                 guardar_datos()  # Guardar cambios
                 console.print(f"\n[bold green] Título del evento actualizado a '{nuevo_titulo}'. [/bold green]")
 
             elif opcion_modificar == 2:
-                nueva_fecha = input("Ingrese la nueva fecha límite (Dia-Mes-Año): ")
+                console.print("[bold white]Ingrese la nueva fecha límite[/bold white] [bold yellow](Dia-Mes-Año): [/bold yellow]")
+                nueva_fecha = input(Fore.CYAN + "")
                 evento_seleccionado['fecha_limite'] = nueva_fecha
                 guardar_datos()  # Guardar cambios
                 console.print(f"\n[bold green] Fecha límite del evento actualizada a '{nueva_fecha}'. [/bold green]")
 
             elif opcion_modificar == 3:
-                nueva_descripcion = input("Ingrese la nueva descripción: ")
+                console.print("[bold white]Ingrese la nueva descripción: [/bold white]")
+                nueva_descripcion = input(Fore.CYAN + "")
                 evento_seleccionado['descripcion'] = nueva_descripcion
                 guardar_datos()  # Guardar cambios
                 console.print(f"\n[bold green] Descripción del evento actualizada a '{nueva_descripcion}'. [/bold green]")
@@ -150,36 +157,41 @@ def modificar_eventos(username):
 
     elif tarea_evento_modificar == 2:
         if len(usuarios[username]['tareas']) != 0:
-            print("Tareas que puedes modificar:")
+            console.print("\n[bold white]Tareas que puedes modificar:[/bold white]\n")
             for id_tarea, tarea in enumerate(usuarios[username]['tareas']):
-                print(f"{id_tarea + 1}. {tarea['titulo']} - {tarea['fecha_limite']} - {tarea['descripcion']}")
+                console.print(f"[bold cyan]{id_tarea + 1}.[/bold cyan] [bold white]{tarea['titulo']} - {tarea['fecha_limite']} - {tarea['descripcion']}[/bold white]")
 
-            print("\nIngrese el número de la tarea a modificar:")
+            console.print("\n[bold cyan]Ingrese el número de la tarea a modificar:[/bold cyan]")
             seleccion = int(input()) - 1
             tarea_seleccionada = usuarios[username]['tareas'][seleccion]
             
-            print("¿Qué desea modificar?")
-            print("""
-            (1) Título
-            (2) Fecha límite
-            (3) Descripción
-            """)
+            console.print("[bold cyan]¿Qué desea modificar?[/bold cyan]")
+            console.print("""
+    [bold cyan](1)[/bold cyan] [bold white]Título[/bold white]
+                          
+    [bold cyan](2)[/bold cyan] [bold white]Fecha límite[/bold white]
+                          
+    [bold cyan](3)[/bold cyan] [bold white]Descripción[/bold white]
+    """)
             opcion_modificar = int(input())
 
             if opcion_modificar == 1:
-                nuevo_titulo = input("Ingrese el nuevo título: ").lower().capitalize()
+                console.print("[bold white]Ingrese el nuevo título: [/bold white]")
+                nuevo_titulo = input(Fore.CYAN + "").lower().capitalize()
                 tarea_seleccionada['titulo'] = nuevo_titulo
                 guardar_datos()  # Guardar cambios
                 console.print(f"\n[bold green] Título de la tarea actualizado a '{nuevo_titulo}'. [/bold green]")
 
             elif opcion_modificar == 2:
-                nueva_fecha = input("Ingrese la nueva fecha límite (Dia-Mes-Año): ")
+                console.print("[bold white]Ingrese la nueva fecha límite[/bold white] [bold yellow](Dia-Mes-Año): [/bold yellow]")
+                nueva_fecha = input(Fore.CYAN + "")
                 tarea_seleccionada['fecha_limite'] = nueva_fecha
                 guardar_datos()  # Guardar cambios
                 console.print(f"\n[bold green] Fecha límite de la tarea actualizada a '{nueva_fecha}'. [/bold green]")
 
             elif opcion_modificar == 3:
-                nueva_descripcion = input("Ingrese la nueva descripción: ")
+                console.print("[bold white]Ingrese la nueva descripción: [/bold white]")
+                nueva_descripcion = input(Fore.CYAN + "")
                 tarea_seleccionada['descripcion'] = nueva_descripcion
                 guardar_datos()  # Guardar cambios
                 console.print(f"\n[bold green] Descripción de la tarea actualizada a '{nueva_descripcion}'. [/bold green]")
@@ -198,24 +210,25 @@ def modificar_eventos(username):
 
 def eliminar_eventos(username):
     """ Te permite eliminar eventos o tareas """
-    print("¿Qué quiere eliminar?:")
-    print("""
-    (1) Para eliminar un Evento
-    (2) Para eliminar una Tarea
+    console.print("[bold red]¿Qué quiere eliminar?:[/bold red]")
+    console.print("""
+    [bold cyan](1)[/bold cyan] [bold white]Para eliminar un[/bold white] [bold cyan]Evento[/bold cyan]
+                  
+    [bold cyan](2)[/bold cyan] [bold white]Para eliminar una[/bold white] [bold cyan]Tarea[/bold cyan]
     """)
     tarea_evento_eliminar = int(input())
 
     if tarea_evento_eliminar == 1:
         if len(usuarios[username]['eventos']) != 0:
-            print("Eventos que puedes eliminar:")
+            console.print("\n[bold white]Eventos que puedes eliminar:[/bold white]\n")
             for id_even, evento in enumerate(usuarios[username]['eventos']):
-                print(f"{id_even + 1}. {evento['titulo']} - {evento['fecha_limite']}")
+                console.print(f"[bold cyan]{id_even + 1}.[/bold cyan] [bold white]{evento['titulo']} - {evento['fecha_limite']}[/bold white]")
 
-            print("\nIngrese el número de evento a eliminar:")
+            console.print("\n[bold cyan]Ingrese el número de evento a eliminar:[/bold cyan]")
             seleccion = int(input()) - 1
             evento_eliminado = usuarios[username]['eventos'].pop(seleccion)
             guardar_datos()  # Guardar cambios
-            console.print(f"\n[bold green] Se ha eliminado el evento '{evento_eliminado['titulo']}'. [/bold green]")
+            console.print(f"\n[bold green]***** Se ha eliminado el evento '{evento_eliminado['titulo']}'. *****[/bold green]")
         else:
             console.print("\n[bold red]--------------------------------[/bold red]")
             console.print("[bold red]| No hay eventos para eliminar |[/bold red]")
@@ -223,15 +236,15 @@ def eliminar_eventos(username):
 
     elif tarea_evento_eliminar == 2:
         if len(usuarios[username]['tareas']) != 0:
-            print("Tareas que puedes eliminar:")
+            console.print("\n[bold white]Tareas que puedes eliminar:[/bold white]\n")
             for id_tarea, tarea in enumerate(usuarios[username]['tareas']):
-                print(f"{id_tarea + 1}. {tarea['titulo']} - {tarea['fecha_limite']}")
+                console.print(f"[bold cyan]{id_tarea + 1}.[/bold cyan] [bold white]{tarea['titulo']} - {tarea['fecha_limite']}[/bold white]")
 
-            print("\nIngrese el número de tarea a eliminar:")
+            console.print("\n[bold cyan]Ingrese el número de tarea a eliminar:[/bold cyan]")
             seleccion = int(input()) - 1
             tarea_eliminada = usuarios[username]['tareas'].pop(seleccion)
             guardar_datos()  # Guardar cambios
-            console.print(f"\n[bold green] Se ha eliminado la tarea '{tarea_eliminada['titulo']}'. [/bold green]")
+            console.print(f"\n[bold green]***** Se ha eliminado la tarea '{tarea_eliminada['titulo']}'. *****[/bold green]")
         else:
             console.print("\n[bold red]-------------------------------[/bold red]")
             console.print("[bold red]| No hay tareas para eliminar |[/bold red]")
@@ -323,7 +336,7 @@ def login():
         if datos['username'] == username and datos['password'] == password:
             console.print("\n[bold green]------------------------------[/bold green]")
             console.print("[bold green]| Inicio de Sesión ¡Exitoso! |[/bold green]")
-            console.print("[bold green]------------------------------[/bold green]\n")
+            console.print("[bold green]------------------------------[/bold green]")
             return usuario  # Retorna la clave del usuario en el diccionario
     
     """ Si no se encuentra el usuario o contraseña no coinciden """
@@ -361,9 +374,9 @@ def menu_principal():
                 menu_usuario(usuario_logeado)  
 
         elif opcion == 3:
-            console.print("[bold red]\n------------------------------------------------------------[/bold red]")
-            console.print("[bold red]| Saliendo de la aplicación... [bold green]¡Gracias por usar EvenPlus![/bold green] | [/bold red]")
-            console.print("[bold red]------------------------------------------------------------[/bold red]")
+            console.print("[bold white]\n------------------------------------------------------------[/bold white]")
+            console.print("[bold white]| Saliendo de la aplicación... [bold green]¡Gracias por usar EvenPlus![/bold green] | [/bold white]")
+            console.print("[bold white]------------------------------------------------------------[/bold white]\n")
         
         else:
             console.print("\n[bold red]--------------------------------------[/bold red]")
@@ -377,18 +390,26 @@ def menu_usuario(username):
     """ El usuario logeado debera elegir la accion que desee. """
     usuario_main = 0
     while usuario_main != 7:
-        print(Fore.CYAN + "Bienvenido a EvenPlus ", end="")
+        print(Fore.CYAN + "\nBienvenido a EvenPlus ", end="")
         console.print(f"{username}", style="bold yellow", end="")
         print(Fore.CYAN + ", tu App para gestionar eventos y tareas.")
         print(Fore.CYAN + "Elija la opción que desee:")
         console.print("""
-    [bold red](1)[/bold red] Insertar un Evento
-    [bold red](2)[/bold red] Eliminar un Evento
-    [bold red](3)[/bold red] Modificar un Evento
-    [bold red](4)[/bold red] Ver Eventos Pendientes
-    [bold red](5)[/bold red] Ver Próximos Eventos 
-    [bold red](6)[/bold red] Ver Historial
-    [bold red](7)[/bold red] Cerrar sesión
+    
+    | [bold cyan](1)[/bold cyan] [bold white]Insertar un Evento[/bold white]     |
+    |----------------------------|
+    | [bold cyan](2)[/bold cyan] [bold white]Eliminar un Evento[/bold white]     |
+    |----------------------------|
+    | [bold cyan](3)[/bold cyan] [bold white]Modificar un Evento[/bold white]    |
+    |----------------------------|
+    | [bold cyan](4)[/bold cyan] [bold white]Ver Eventos Pendientes[/bold white] |
+    |----------------------------|
+    | [bold cyan](5)[/bold cyan] [bold white]Ver Próximos Eventos[/bold white]   |
+    |----------------------------|
+    | [bold cyan](6)[/bold cyan] [bold white]Ver Historial[/bold white]          |
+    |----------------------------|
+    | [bold cyan](7)[/bold cyan] [bold white]Cerrar sesión[/bold white]          |
+    
     """)
         
         usuario_main = int(input(Fore.CYAN + "Ingrese el numero de la opción que desea realizar: "))
