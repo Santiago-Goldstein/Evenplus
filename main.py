@@ -101,7 +101,7 @@ def insertar_eventos(username):
             else:
                 console.print("\n[bold red]-------------------------------------[/bold red]")
                 console.print("[bold red]| Por favor elija una opción válida |[/bold red]")
-                console.print("[bold red]-------------------------------------[/bold red]")
+                console.print("[bold red]-------------------------------------[/bold red]\n")
 
         except ValueError:
             console.print("\n[bold red]-------------------------------------[/bold red]")
@@ -111,162 +111,180 @@ def insertar_eventos(username):
 
 def modificar_eventos(username):
     """ Te permite modificar eventos, tareas y descripciones """
-    console.print("[bold yellow]¿Qué quiere modificar?:[/bold yellow]")
-    console.print("""
-    [bold cyan](1)[/bold cyan] [bold white]Para modificar un[/bold white] [bold cyan]Evento[/bold cyan]
-                      
-    [bold cyan](2)[/bold cyan] [bold white]Para modificar una[/bold white] [bold cyan]Tarea[/bold cyan]
-    """)
-    tarea_evento_modificar = int(input())
 
-    if tarea_evento_modificar == 1:
-        if len(usuarios[username]['eventos']) != 0:
-            console.print("\n[bold white]Eventos que puedes modificar:[/bold white]\n")
-            for id_even, evento in enumerate(usuarios[username]['eventos']):
-                console.print(f"[bold cyan]{id_even + 1}.[/bold cyan] [bold white]{evento['titulo']} - {evento['fecha_limite']} - {evento['descripcion']}[/bold white]")
-
-            console.print("\n[bold cyan]Ingrese el número del evento a modificar:[/bold cyan]")
-            seleccion = int(input()) - 1
-            evento_seleccionado = usuarios[username]['eventos'][seleccion]
-            
-            console.print("\n[bold cyan]¿Qué desea modificar?[/bold cyan]")
+    bandera_modificar = True
+    while bandera_modificar:
+        try:
+            console.print("[bold yellow]¿Qué quiere modificar?:[/bold yellow]")
             console.print("""
-    [bold cyan](1)[/bold cyan] [bold white]Título[/bold white]
-                          
-    [bold cyan](2)[/bold cyan] [bold white]Fecha límite[/bold white]
-                          
-    [bold cyan](3)[/bold cyan] [bold white]Descripción[/bold white]
-    """)
-            opcion_modificar = int(input())
+            [bold cyan](1)[/bold cyan] [bold white]Para modificar un[/bold white] [bold cyan]Evento[/bold cyan]
+                            
+            [bold cyan](2)[/bold cyan] [bold white]Para modificar una[/bold white] [bold cyan]Tarea[/bold cyan]
+            """)
+            tarea_evento_modificar = int(input())
 
-            if opcion_modificar == 1:
-                console.print("[bold white]Ingrese el nuevo título: [/bold white]")
-                nuevo_titulo = input(Fore.CYAN + "").lower().capitalize()
-                evento_seleccionado['titulo'] = nuevo_titulo
-                guardar_datos()  # Guardar cambios
-                console.print(f"\n[bold green] Título del evento actualizado a '{nuevo_titulo}'. [/bold green]")
+            if tarea_evento_modificar == 1:
+                if len(usuarios[username]['eventos']) != 0:
+                    console.print("\n[bold white]Eventos que puedes modificar:[/bold white]\n")
+                    for id_even, evento in enumerate(usuarios[username]['eventos']):
+                        console.print(f"[bold cyan]{id_even + 1}.[/bold cyan] [bold white]{evento['titulo']} - {evento['fecha_limite']} - {evento['descripcion']}[/bold white]")
 
-            elif opcion_modificar == 2:
-                console.print("[bold white]Ingrese la nueva fecha límite[/bold white] [bold yellow](Dia-Mes-Año): [/bold yellow]")
-                nueva_fecha = input(Fore.CYAN + "")
-                evento_seleccionado['fecha_limite'] = nueva_fecha
-                guardar_datos()  # Guardar cambios
-                console.print(f"\n[bold green] Fecha límite del evento actualizada a '{nueva_fecha}'. [/bold green]")
+                    console.print("\n[bold cyan]Ingrese el número del evento a modificar:[/bold cyan]")
+                    seleccion = int(input()) - 1
+                    evento_seleccionado = usuarios[username]['eventos'][seleccion]
+                    
+                    console.print("\n[bold cyan]¿Qué desea modificar?[/bold cyan]")
+                    console.print("""
+            [bold cyan](1)[/bold cyan] [bold white]Título[/bold white]
+                                
+            [bold cyan](2)[/bold cyan] [bold white]Fecha límite[/bold white]
+                                
+            [bold cyan](3)[/bold cyan] [bold white]Descripción[/bold white]
+            """)
+                    opcion_modificar = int(input())
 
-            elif opcion_modificar == 3:
-                console.print("[bold white]Ingrese la nueva descripción: [/bold white]")
-                nueva_descripcion = input(Fore.CYAN + "")
-                evento_seleccionado['descripcion'] = nueva_descripcion
-                guardar_datos()  # Guardar cambios
-                console.print(f"\n[bold green] Descripción del evento actualizada a '{nueva_descripcion}'. [/bold green]")
-                
-                
-            
-        else:
-            console.print("\n[bold red]---------------------------------[/bold red]")
-            console.print("[bold red]| No hay eventos para modificar |[/bold red]")
-            console.print("[bold red]---------------------------------[/bold red]")
+                    if opcion_modificar == 1:
+                        console.print("[bold white]Ingrese el nuevo título: [/bold white]")
+                        nuevo_titulo = input(Fore.CYAN + "").lower().capitalize()
+                        evento_seleccionado['titulo'] = nuevo_titulo
+                        guardar_datos()  # Guardar cambios
+                        console.print(f"\n[bold green] Título del evento actualizado a '{nuevo_titulo}'. [/bold green]")
 
-    elif tarea_evento_modificar == 2:
-        if len(usuarios[username]['tareas']) != 0:
-            console.print("\n[bold white]Tareas que puedes modificar:[/bold white]\n")
-            for id_tarea, tarea in enumerate(usuarios[username]['tareas']):
-                console.print(f"[bold cyan]{id_tarea + 1}.[/bold cyan] [bold white]{tarea['titulo']} - {tarea['fecha_limite']} - {tarea['descripcion']}[/bold white]")
+                    elif opcion_modificar == 2:
+                        console.print("[bold white]Ingrese la nueva fecha límite[/bold white] [bold yellow](Dia-Mes-Año): [/bold yellow]")
+                        nueva_fecha = input(Fore.CYAN + "")
+                        evento_seleccionado['fecha_limite'] = nueva_fecha
+                        guardar_datos()  # Guardar cambios
+                        console.print(f"\n[bold green] Fecha límite del evento actualizada a '{nueva_fecha}'. [/bold green]")
 
-            console.print("\n[bold cyan]Ingrese el número de la tarea a modificar:[/bold cyan]")
-            seleccion = int(input()) - 1
-            tarea_seleccionada = usuarios[username]['tareas'][seleccion]
-            
-            console.print("[bold cyan]¿Qué desea modificar?[/bold cyan]")
-            console.print("""
-    [bold cyan](1)[/bold cyan] [bold white]Título[/bold white]
-                          
-    [bold cyan](2)[/bold cyan] [bold white]Fecha límite[/bold white]
-                          
-    [bold cyan](3)[/bold cyan] [bold white]Descripción[/bold white]
-    """)
-            opcion_modificar = int(input())
+                    elif opcion_modificar == 3:
+                        console.print("[bold white]Ingrese la nueva descripción: [/bold white]")
+                        nueva_descripcion = input(Fore.CYAN + "")
+                        evento_seleccionado['descripcion'] = nueva_descripcion
+                        guardar_datos()  # Guardar cambios
+                        console.print(f"\n[bold green] Descripción del evento actualizada a '{nueva_descripcion}'. [/bold green]")
+                        
+                        
+                    
+                else:
+                    console.print("\n[bold red]---------------------------------[/bold red]")
+                    console.print("[bold red]| No hay eventos para modificar |[/bold red]")
+                    console.print("[bold red]---------------------------------[/bold red]")
 
-            if opcion_modificar == 1:
-                console.print("[bold white]Ingrese el nuevo título: [/bold white]")
-                nuevo_titulo = input(Fore.CYAN + "").lower().capitalize()
-                tarea_seleccionada['titulo'] = nuevo_titulo
-                guardar_datos()  # Guardar cambios
-                console.print(f"\n[bold green] Título de la tarea actualizado a '{nuevo_titulo}'. [/bold green]")
+            elif tarea_evento_modificar == 2:
+                if len(usuarios[username]['tareas']) != 0:
+                    console.print("\n[bold white]Tareas que puedes modificar:[/bold white]\n")
+                    for id_tarea, tarea in enumerate(usuarios[username]['tareas']):
+                        console.print(f"[bold cyan]{id_tarea + 1}.[/bold cyan] [bold white]{tarea['titulo']} - {tarea['fecha_limite']} - {tarea['descripcion']}[/bold white]")
 
-            elif opcion_modificar == 2:
-                console.print("[bold white]Ingrese la nueva fecha límite[/bold white] [bold yellow](Dia-Mes-Año): [/bold yellow]")
-                nueva_fecha = input(Fore.CYAN + "")
-                tarea_seleccionada['fecha_limite'] = nueva_fecha
-                guardar_datos()  # Guardar cambios
-                console.print(f"\n[bold green] Fecha límite de la tarea actualizada a '{nueva_fecha}'. [/bold green]")
+                    console.print("\n[bold cyan]Ingrese el número de la tarea a modificar:[/bold cyan]")
+                    seleccion = int(input()) - 1
+                    tarea_seleccionada = usuarios[username]['tareas'][seleccion]
+                    
+                    console.print("[bold cyan]¿Qué desea modificar?[/bold cyan]")
+                    console.print("""
+            [bold cyan](1)[/bold cyan] [bold white]Título[/bold white]
+                                
+            [bold cyan](2)[/bold cyan] [bold white]Fecha límite[/bold white]
+                                
+            [bold cyan](3)[/bold cyan] [bold white]Descripción[/bold white]
+            """)
+                    opcion_modificar = int(input())
 
-            elif opcion_modificar == 3:
-                console.print("[bold white]Ingrese la nueva descripción: [/bold white]")
-                nueva_descripcion = input(Fore.CYAN + "")
-                tarea_seleccionada['descripcion'] = nueva_descripcion
-                guardar_datos()  # Guardar cambios
-                console.print(f"\n[bold green] Descripción de la tarea actualizada a '{nueva_descripcion}'. [/bold green]")
-            
-        else:
-            console.print("\n[bold red]--------------------------------[/bold red]")
-            console.print("[bold red]| No hay tareas para modificar |[/bold red]")
-            console.print("[bold red]--------------------------------[/bold red]")
-    else:
-        console.print("\n[bold red]-------------------------------------[/bold red]")
-        console.print("[bold red]| Por favor elija una opción válida |[/bold red]")
-        console.print("[bold red]-------------------------------------[/bold red]")
+                    if opcion_modificar == 1:
+                        console.print("[bold white]Ingrese el nuevo título: [/bold white]")
+                        nuevo_titulo = input(Fore.CYAN + "").lower().capitalize()
+                        tarea_seleccionada['titulo'] = nuevo_titulo
+                        guardar_datos()  # Guardar cambios
+                        console.print(f"\n[bold green] Título de la tarea actualizado a '{nuevo_titulo}'. [/bold green]")
 
+                    elif opcion_modificar == 2:
+                        console.print("[bold white]Ingrese la nueva fecha límite[/bold white] [bold yellow](Dia-Mes-Año): [/bold yellow]")
+                        nueva_fecha = input(Fore.CYAN + "")
+                        tarea_seleccionada['fecha_limite'] = nueva_fecha
+                        guardar_datos()  # Guardar cambios
+                        console.print(f"\n[bold green] Fecha límite de la tarea actualizada a '{nueva_fecha}'. [/bold green]")
 
-    
+                    elif opcion_modificar == 3:
+                        console.print("[bold white]Ingrese la nueva descripción: [/bold white]")
+                        nueva_descripcion = input(Fore.CYAN + "")
+                        tarea_seleccionada['descripcion'] = nueva_descripcion
+                        guardar_datos()  # Guardar cambios
+                        console.print(f"\n[bold green] Descripción de la tarea actualizada a '{nueva_descripcion}'. [/bold green]")
+                    
+                else:
+                    console.print("\n[bold red]--------------------------------[/bold red]")
+                    console.print("[bold red]| No hay tareas para modificar |[/bold red]")
+                    console.print("[bold red]--------------------------------[/bold red]")
+            else:
+                console.print("\n[bold red]-------------------------------------[/bold red]")
+                console.print("[bold red]| Por favor elija una opción válida |[/bold red]")
+                console.print("[bold red]-------------------------------------[/bold red]\n")
+        except ValueError:
+            console.print("\n[bold red]-------------------------------------[/bold red]")
+            console.print("[bold red]| ¡Por favor, ingrese solo NUMEROS! |[/bold red]")
+            console.print("[bold red]-------------------------------------[/bold red]\n")
+        except IndexError:
+            console.print("\n[bold red]-----------------------------[/bold red]")
+            console.print("[bold red]| ¡Ingrese un valor valido! |[/bold red]")
+            console.print("[bold red]-----------------------------[/bold red]\n")
 
 def eliminar_eventos(username):
     """ Te permite eliminar eventos o tareas """
-    console.print("[bold red]¿Qué quiere eliminar?:[/bold red]")
-    console.print("""
-    [bold cyan](1)[/bold cyan] [bold white]Para eliminar un[/bold white] [bold cyan]Evento[/bold cyan]
-                  
-    [bold cyan](2)[/bold cyan] [bold white]Para eliminar una[/bold white] [bold cyan]Tarea[/bold cyan]
-    """)
-    tarea_evento_eliminar = int(input())
+    bandera_eliminar = True
+    while bandera_eliminar:
+        try:
+            console.print("[bold red]¿Qué quiere eliminar?:[/bold red]")
+            console.print("""
+        [bold cyan](1)[/bold cyan] [bold white]Para eliminar un[/bold white] [bold cyan]Evento[/bold cyan]
+                        
+        [bold cyan](2)[/bold cyan] [bold white]Para eliminar una[/bold white] [bold cyan]Tarea[/bold cyan]
+        """)
+            tarea_evento_eliminar = int(input())
 
-    if tarea_evento_eliminar == 1:
-        if len(usuarios[username]['eventos']) != 0:
-            console.print("\n[bold white]Eventos que puedes eliminar:[/bold white]\n")
-            for id_even, evento in enumerate(usuarios[username]['eventos']):
-                console.print(f"[bold cyan]{id_even + 1}.[/bold cyan] [bold white]{evento['titulo']} - {evento['fecha_limite']}[/bold white]")
+            if tarea_evento_eliminar == 1:
+                    if len(usuarios[username]['eventos']) != 0:
+                            console.print("\n[bold white]Eventos que puedes eliminar:[/bold white]\n")
+                            for id_even, evento in enumerate(usuarios[username]['eventos']):
+                                console.print(f"[bold cyan]{id_even + 1}.[/bold cyan] [bold white]{evento['titulo']} - {evento['fecha_limite']}[/bold white]")
 
-            console.print("\n[bold cyan]Ingrese el número de evento a eliminar:[/bold cyan]")
-            seleccion = int(input()) - 1
-            evento_eliminado = usuarios[username]['eventos'].pop(seleccion)
-            guardar_datos()  # Guardar cambios
-            console.print(f"\n[bold green]***** Se ha eliminado el evento '{evento_eliminado['titulo']}'. *****[/bold green]")
-        else:
-            console.print("\n[bold red]--------------------------------[/bold red]")
-            console.print("[bold red]| No hay eventos para eliminar |[/bold red]")
-            console.print("[bold red]--------------------------------[/bold red]")
+                            console.print("\n[bold cyan]Ingrese el número de evento a eliminar:[/bold cyan]")
+                            seleccion = int(input()) - 1
+                            evento_eliminado = usuarios[username]['eventos'].pop(seleccion)
+                            guardar_datos()  # Guardar cambios
+                            console.print(f"\n[bold green]***** Se ha eliminado el evento '{evento_eliminado['titulo']}'. *****[/bold green]")
+                    else:
+                        console.print("\n[bold red]--------------------------------[/bold red]")
+                        console.print("[bold red]| No hay eventos para eliminar |[/bold red]")
+                        console.print("[bold red]--------------------------------[/bold red]")
 
-    elif tarea_evento_eliminar == 2:
-        if len(usuarios[username]['tareas']) != 0:
-            console.print("\n[bold white]Tareas que puedes eliminar:[/bold white]\n")
-            for id_tarea, tarea in enumerate(usuarios[username]['tareas']):
-                console.print(f"[bold cyan]{id_tarea + 1}.[/bold cyan] [bold white]{tarea['titulo']} - {tarea['fecha_limite']}[/bold white]")
+            elif tarea_evento_eliminar == 2:
+                if len(usuarios[username]['tareas']) != 0:
+                    console.print("\n[bold white]Tareas que puedes eliminar:[/bold white]\n")
+                    for id_tarea, tarea in enumerate(usuarios[username]['tareas']):
+                        console.print(f"[bold cyan]{id_tarea + 1}.[/bold cyan] [bold white]{tarea['titulo']} - {tarea['fecha_limite']}[/bold white]")
 
-            console.print("\n[bold cyan]Ingrese el número de tarea a eliminar:[/bold cyan]")
-            seleccion = int(input()) - 1
-            tarea_eliminada = usuarios[username]['tareas'].pop(seleccion)
-            guardar_datos()  # Guardar cambios
-            console.print(f"\n[bold green]***** Se ha eliminado la tarea '{tarea_eliminada['titulo']}'. *****[/bold green]")
-        else:
-            console.print("\n[bold red]-------------------------------[/bold red]")
-            console.print("[bold red]| No hay tareas para eliminar |[/bold red]")
-            console.print("[bold red]-------------------------------[/bold red]")
-    else:
-        console.print("\n[bold red]--------------------------------------[/bold red]")
-        console.print("[bold red]| Por favor, elija una opción válida |[/bold red]")
-        console.print("[bold red]--------------------------------------[/bold red]")
-
-    
+                    console.print("\n[bold cyan]Ingrese el número de tarea a eliminar:[/bold cyan]")
+                    seleccion = int(input()) - 1
+                    tarea_eliminada = usuarios[username]['tareas'].pop(seleccion)
+                    guardar_datos()  # Guardar cambios
+                    console.print(f"\n[bold green]***** Se ha eliminado la tarea '{tarea_eliminada['titulo']}'. *****[/bold green]")
+                else:
+                    console.print("\n[bold red]-------------------------------[/bold red]")
+                    console.print("[bold red]| No hay tareas para eliminar |[/bold red]")
+                    console.print("[bold red]-------------------------------[/bold red]")
+            else:
+                console.print("\n[bold red]--------------------------------------[/bold red]")
+                console.print("[bold red]| Por favor, elija una opción válida |[/bold red]")
+                console.print("[bold red]--------------------------------------[/bold red]\n")
+        except ValueError:
+            console.print("\n[bold red]-------------------------------------[/bold red]")
+            console.print("[bold red]| ¡Por favor, ingrese solo NUMEROS! |[/bold red]")
+            console.print("[bold red]-------------------------------------[/bold red]\n")
+        except IndexError:
+            console.print("\n[bold red]-----------------------------[/bold red]")
+            console.print("[bold red]| ¡Ingrese un valor valido! |[/bold red]")
+            console.print("[bold red]-----------------------------[/bold red]\n")
 
 def ver_eventos_pendientes(username):
     """ Muestra los eventos y tareas del usuario logueado """
