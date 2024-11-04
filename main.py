@@ -50,6 +50,8 @@ def insertar_eventos(username):
         [bold cyan](1)[/bold cyan] [bold white]Para insertar un[/bold white] [bold cyan]Evento[/bold cyan]
                         
         [bold cyan](2)[/bold cyan] [bold white]Para insertar una[/bold white] [bold cyan]Tarea[/bold cyan]
+                          
+        [bold cyan](3)[/bold cyan] [bold green]<< Volver[/bold green]
         """)
             tarea_evento = int(input())
             
@@ -98,6 +100,10 @@ def insertar_eventos(username):
 
                 if sigue != "si":
                     evento_usuario = False
+
+            elif tarea_evento == 3:
+                evento_usuario =False
+
             else:
                 console.print("\n[bold red]-------------------------------------[/bold red]")
                 console.print("[bold red]| Por favor elija una opción válida |[/bold red]")
@@ -117,10 +123,12 @@ def modificar_eventos(username):
         try:
             console.print("[bold yellow]¿Qué quiere modificar?:[/bold yellow]")
             console.print("""
-            [bold cyan](1)[/bold cyan] [bold white]Para modificar un[/bold white] [bold cyan]Evento[/bold cyan]
+        [bold cyan](1)[/bold cyan] [bold white]Para modificar un[/bold white] [bold cyan]Evento[/bold cyan]
                             
-            [bold cyan](2)[/bold cyan] [bold white]Para modificar una[/bold white] [bold cyan]Tarea[/bold cyan]
-            """)
+        [bold cyan](2)[/bold cyan] [bold white]Para modificar una[/bold white] [bold cyan]Tarea[/bold cyan]
+                          
+        [bold cyan](3)[/bold cyan] [bold green]<< Volver[/bold green]
+        """)
             tarea_evento_modificar = int(input())
 
             if tarea_evento_modificar == 1:
@@ -135,12 +143,12 @@ def modificar_eventos(username):
                     
                     console.print("\n[bold cyan]¿Qué desea modificar?[/bold cyan]")
                     console.print("""
-            [bold cyan](1)[/bold cyan] [bold white]Título[/bold white]
+        [bold cyan](1)[/bold cyan] [bold white]Título[/bold white]
                                 
-            [bold cyan](2)[/bold cyan] [bold white]Fecha límite[/bold white]
+        [bold cyan](2)[/bold cyan] [bold white]Fecha límite[/bold white]
                                 
-            [bold cyan](3)[/bold cyan] [bold white]Descripción[/bold white]
-            """)
+        [bold cyan](3)[/bold cyan] [bold white]Descripción[/bold white]
+        """)        
                     opcion_modificar = int(input())
 
                     if opcion_modificar == 1:
@@ -149,6 +157,7 @@ def modificar_eventos(username):
                         evento_seleccionado['titulo'] = nuevo_titulo
                         guardar_datos()  # Guardar cambios
                         console.print(f"\n[bold green] Título del evento actualizado a '{nuevo_titulo}'. [/bold green]")
+                        bandera_modificar = False
 
                     elif opcion_modificar == 2:
                         console.print("[bold white]Ingrese la nueva fecha límite[/bold white] [bold yellow](Dia-Mes-Año): [/bold yellow]")
@@ -156,6 +165,7 @@ def modificar_eventos(username):
                         evento_seleccionado['fecha_limite'] = nueva_fecha
                         guardar_datos()  # Guardar cambios
                         console.print(f"\n[bold green] Fecha límite del evento actualizada a '{nueva_fecha}'. [/bold green]")
+                        bandera_modificar = False
 
                     elif opcion_modificar == 3:
                         console.print("[bold white]Ingrese la nueva descripción: [/bold white]")
@@ -163,8 +173,7 @@ def modificar_eventos(username):
                         evento_seleccionado['descripcion'] = nueva_descripcion
                         guardar_datos()  # Guardar cambios
                         console.print(f"\n[bold green] Descripción del evento actualizada a '{nueva_descripcion}'. [/bold green]")
-                        
-                        
+                        bandera_modificar = False
                     
                 else:
                     console.print("\n[bold red]---------------------------------[/bold red]")
@@ -183,12 +192,12 @@ def modificar_eventos(username):
                     
                     console.print("[bold cyan]¿Qué desea modificar?[/bold cyan]")
                     console.print("""
-            [bold cyan](1)[/bold cyan] [bold white]Título[/bold white]
+        [bold cyan](1)[/bold cyan] [bold white]Título[/bold white]
                                 
-            [bold cyan](2)[/bold cyan] [bold white]Fecha límite[/bold white]
+        [bold cyan](2)[/bold cyan] [bold white]Fecha límite[/bold white]
                                 
-            [bold cyan](3)[/bold cyan] [bold white]Descripción[/bold white]
-            """)
+        [bold cyan](3)[/bold cyan] [bold white]Descripción[/bold white]
+        """)
                     opcion_modificar = int(input())
 
                     if opcion_modificar == 1:
@@ -197,6 +206,7 @@ def modificar_eventos(username):
                         tarea_seleccionada['titulo'] = nuevo_titulo
                         guardar_datos()  # Guardar cambios
                         console.print(f"\n[bold green] Título de la tarea actualizado a '{nuevo_titulo}'. [/bold green]")
+                        bandera_modificar = False
 
                     elif opcion_modificar == 2:
                         console.print("[bold white]Ingrese la nueva fecha límite[/bold white] [bold yellow](Dia-Mes-Año): [/bold yellow]")
@@ -204,6 +214,7 @@ def modificar_eventos(username):
                         tarea_seleccionada['fecha_limite'] = nueva_fecha
                         guardar_datos()  # Guardar cambios
                         console.print(f"\n[bold green] Fecha límite de la tarea actualizada a '{nueva_fecha}'. [/bold green]")
+                        bandera_modificar = False
 
                     elif opcion_modificar == 3:
                         console.print("[bold white]Ingrese la nueva descripción: [/bold white]")
@@ -211,11 +222,16 @@ def modificar_eventos(username):
                         tarea_seleccionada['descripcion'] = nueva_descripcion
                         guardar_datos()  # Guardar cambios
                         console.print(f"\n[bold green] Descripción de la tarea actualizada a '{nueva_descripcion}'. [/bold green]")
+                        bandera_modificar = False
                     
                 else:
                     console.print("\n[bold red]--------------------------------[/bold red]")
                     console.print("[bold red]| No hay tareas para modificar |[/bold red]")
                     console.print("[bold red]--------------------------------[/bold red]")
+            
+            elif tarea_evento_modificar == 3:
+                bandera_modificar = False
+
             else:
                 console.print("\n[bold red]-------------------------------------[/bold red]")
                 console.print("[bold red]| Por favor elija una opción válida |[/bold red]")
@@ -239,6 +255,8 @@ def eliminar_eventos(username):
         [bold cyan](1)[/bold cyan] [bold white]Para eliminar un[/bold white] [bold cyan]Evento[/bold cyan]
                         
         [bold cyan](2)[/bold cyan] [bold white]Para eliminar una[/bold white] [bold cyan]Tarea[/bold cyan]
+                          
+        [bold cyan](3)[/bold cyan] [bold green]<< Volver[/bold green]
         """)
             tarea_evento_eliminar = int(input())
 
@@ -253,6 +271,7 @@ def eliminar_eventos(username):
                             evento_eliminado = usuarios[username]['eventos'].pop(seleccion)
                             guardar_datos()  # Guardar cambios
                             console.print(f"\n[bold green]***** Se ha eliminado el evento '{evento_eliminado['titulo']}'. *****[/bold green]")
+                            bandera_eliminar = False
                     else:
                         console.print("\n[bold red]--------------------------------[/bold red]")
                         console.print("[bold red]| No hay eventos para eliminar |[/bold red]")
@@ -269,10 +288,15 @@ def eliminar_eventos(username):
                     tarea_eliminada = usuarios[username]['tareas'].pop(seleccion)
                     guardar_datos()  # Guardar cambios
                     console.print(f"\n[bold green]***** Se ha eliminado la tarea '{tarea_eliminada['titulo']}'. *****[/bold green]")
+                    bandera_eliminar = False
                 else:
                     console.print("\n[bold red]-------------------------------[/bold red]")
                     console.print("[bold red]| No hay tareas para eliminar |[/bold red]")
                     console.print("[bold red]-------------------------------[/bold red]")
+            
+            elif tarea_evento_eliminar == 3:
+                bandera_eliminar = False
+
             else:
                 console.print("\n[bold red]--------------------------------------[/bold red]")
                 console.print("[bold red]| Por favor, elija una opción válida |[/bold red]")
@@ -339,7 +363,11 @@ def register():
     console.print("[bold green]\n----------------------------[/bold green]")
     console.print("[bold green]| ***** ¡Regístrese! ***** |[/bold green]")
     console.print("[bold green]---------------------------- \n[/bold green]")
-    register_usuario = console.input("[bold green] Ingrese un usuario para registrarse: [/bold green]").lower().capitalize()
+
+    register_usuario = console.input("[bold green] Ingrese un usuario para registrarse [/bold green][bold white](o presione 'enter' para [bold green]<< Volver[/bold green]): [/bold white]").lower().capitalize()
+    if register_usuario == "":
+        return menu_principal() 
+            
     register_contra = console.input("\n[bold green] Ingrese una contraseña: [/bold green]").lower().capitalize()
     usuarios[register_usuario] = {
         "username": register_usuario,
@@ -361,7 +389,11 @@ def login():
     console.print("[bold yellow]\n--------------------------------[/bold yellow]")
     console.print("[bold yellow]| ***** Inicio de sesión ***** |[/bold yellow]")
     console.print("[bold yellow]-------------------------------- \n[/bold yellow]")
+
     username = input(Fore.YELLOW + "Ingrese su usuario para iniciar sesión:\n").lower().capitalize()
+    if username == "":
+        return menu_principal()
+
     password = input(Fore.YELLOW + "\nIngrese su contraseña:\n").lower().capitalize()
 
     """ Verificamos si el usuario existe en el diccionario """
