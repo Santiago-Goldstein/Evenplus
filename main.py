@@ -407,7 +407,7 @@ def login():
     if username == "":
         return menu_principal()
 
-    password = input(Fore.YELLOW + "\nIngrese su contraseña:\n").lower().capitalize()
+    password = console.input("\n[bold yellow]Ingrese su contraseña:[/bold yellow]\n").lower().capitalize()
 
     """ Verificamos si el usuario existe en el diccionario """
     for usuario, datos in usuarios.items():
