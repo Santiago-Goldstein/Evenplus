@@ -16,15 +16,7 @@ json_path = os.path.join(base_dir, 'evenplus.json')
 
 
 def validar_contrasena(contrasena):
-    """Valida que la contraseña tenga exactamente 5 caracteres y 1 número.
-
-    Args:
-        contrasena: La contraseña a validar.
-
-    Returns:
-        True si la contraseña es válida, False si no lo es.
-    """
-
+    """Validar que la contraseña tenga exactamente 5 caracteres y 1 número"""
     patron = r"^(?=.*\d)(?=.*[a-zA-Z]).{5,}$"
     return re.search(patron, contrasena) is not None
 
