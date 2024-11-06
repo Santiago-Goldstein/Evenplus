@@ -390,7 +390,7 @@ def login():
     console.print("[bold yellow]| ***** Inicio de sesión ***** |[/bold yellow]")
     console.print("[bold yellow]-------------------------------- \n[/bold yellow]")
 
-    username = console.input("[bold yellow]Ingrese su usuario para iniciar sesión[/bold yellow] [bold white](o presione 'enter' para [bold green]<< Volver[/bold green]): [/bold white]\n").lower().capitalize()
+    username = console.input("[bold yellow]Ingrese su usuario para iniciar sesión[/bold yellow][bold white](o presione 'enter' para [bold green]<< Volver[/bold green]): [/bold white]\n").lower().capitalize()
     if username == "":
         return menu_principal()
 
