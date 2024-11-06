@@ -4,6 +4,7 @@ from rich.console import Console
 from pyfiglet import figlet_format
 import os
 import re
+import datetime
 
 init(autoreset=True)
 console = Console()
@@ -64,17 +65,28 @@ def insertar_eventos(username):
             if tarea_evento == 1:
                 console.print("\n[bold white]Ingrese el nombre del evento:[/bold white]")
                 titulo_evento = input(Fore.CYAN + "").lower().capitalize()
-                console.print("\n[bold white]Ingrese la fecha del evento [bold cyan](Dia-Mes-Año)[/bold cyan]:[/bold white]")
-                fecha_limite = input(Fore.CYAN + "")
+                console.print("\n[bold white]Ingrese la fecha del evento [bold cyan](DD-MM-AAAA)[/bold cyan]:[/bold white]")
+                fecha_limite_str = input(Fore.CYAN + "")
+                bandera_fecha = True
+                while bandera_fecha:
+                    try:
+                        fecha_limite = datetime.datetime.strptime(fecha_limite_str, "%d-%m-%Y").date()
+                        fecha_limite_str = fecha_limite.strftime("%d-%m-%Y") # Convierte a string
+                        bandera_fecha = False
+                    except ValueError:
+                        console.print("\n[bold red]Formato de fecha inválido. Debe ser DD-MM-AAAA[/bold red]")
+                        console.print("\n[bold white]Ingrese la fecha del evento [bold cyan](DD-MM-AAAA)[/bold cyan]:[/bold white]")
+                        fecha_limite_str = input(Fore.CYAN + "")
+
                 console.print("\n[bold white]Ingrese la descripción del evento:[/bold white]")
                 descripcion = input(Fore.CYAN + "")
                 usuarios[username]['eventos'].append({
                     "titulo": titulo_evento,
-                    "fecha_limite": fecha_limite,
+                    "fecha_limite": fecha_limite_str,
                     "descripcion": descripcion
                 })
 
-                agregar_a_historial(username, "Evento", titulo_evento, fecha_limite)  # Agregar al historial
+                agregar_a_historial(username, "Evento", titulo_evento, fecha_limite_str)  # Agregar al historial
                 guardar_datos()  # Guardar cambios
                 console.print(f"\n[bold green] Evento '{titulo_evento}' guardado exitosamente. [/bold green]")
 
@@ -87,17 +99,28 @@ def insertar_eventos(username):
             elif tarea_evento == 2:
                 console.print("\n[bold white]Ingrese el nombre de la tarea:[/bold white]")
                 titulo_tarea = input(Fore.CYAN + "").lower().capitalize()
-                console.print("\n[bold white]Ingrese la fecha de la tarea [bold cyan](Dia-Mes-Año)[/bold cyan]:[/bold white]")
-                fecha_limite = input(Fore.CYAN + "")
+                console.print("\n[bold white]Ingrese la fecha de la tarea [bold cyan](DD-MM-AAAA)[/bold cyan]:[/bold white]")
+                fecha_limite_str = input(Fore.CYAN + "")
+                bandera_fecha = True
+                while bandera_fecha:
+                    try:
+                        fecha_limite = datetime.datetime.strptime(fecha_limite_str, "%d-%m-%Y").date()
+                        fecha_limite_str = fecha_limite.strftime("%d-%m-%Y") #Convierte a string
+                        bandera_fecha = False
+                    except ValueError:
+                        console.print("\n[bold red]Formato de fecha inválido. Debe ser DD-MM-AAAA[/bold red]")
+                        console.print("\n[bold white]Ingrese la fecha de la tarea [bold cyan](DD-MM-AAAA)[/bold cyan]:[/bold white]")
+                        fecha_limite_str = input(Fore.CYAN + "")
+
                 console.print("\n[bold white]Ingrese la descripción de la tarea:[/bold white]")
                 descripcion = input(Fore.CYAN + "")
                 usuarios[username]['tareas'].append({
                     "titulo": titulo_tarea,
-                    "fecha_limite": fecha_limite,
+                    "fecha_limite": fecha_limite_str,
                     "descripcion": descripcion
                 })
 
-                agregar_a_historial(username, "Tarea", titulo_tarea, fecha_limite)  # Agregar al historial
+                agregar_a_historial(username, "Tarea", titulo_tarea, fecha_limite_str)  # Agregar al historial
                 guardar_datos()  # Guardar cambios     
                 console.print(f"\n[bold green] Tarea '{titulo_tarea}' guardada exitosamente. [/bold green]")
                 
