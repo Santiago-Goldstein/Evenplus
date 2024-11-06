@@ -3,6 +3,7 @@ from colorama import Fore, init
 from rich.console import Console
 from pyfiglet import figlet_format
 import os
+import re
 
 init(autoreset=True)
 console = Console()
@@ -13,6 +14,19 @@ base_dir = os.path.dirname(os.path.abspath(__file__))
 # Ruta al archivo JSON en la misma carpeta
 json_path = os.path.join(base_dir, 'evenplus.json')
 
+
+def validar_contrasena(contrasena):
+    """Valida que la contraseña tenga exactamente 5 caracteres y 1 número.
+
+    Args:
+        contrasena: La contraseña a validar.
+
+    Returns:
+        True si la contraseña es válida, False si no lo es.
+    """
+
+    patron = r"^(?=.*\d)(?=.*[a-zA-Z]).{5,}$"
+    return re.search(patron, contrasena) is not None
 
 def cargar_datos():
     """ Cargar datos desde el archivo JSON """
@@ -367,8 +381,15 @@ def register():
     register_usuario = console.input("[bold green] Ingrese un usuario para registrarse [/bold green][bold white](o presione 'enter' para [bold green]<< Volver[/bold green]): [/bold white]").lower().capitalize()
     if register_usuario == "":
         return menu_principal() 
-            
-    register_contra = console.input("\n[bold green] Ingrese una contraseña: [/bold green]").lower().capitalize()
+    
+    contraseña_valida = False 
+    while not contraseña_valida:        
+        register_contra = console.input("\n[bold green] Ingrese una contraseña [/bold green][bold white](5 caracteres y al menos 1 numero): [/bold white]").lower().capitalize()
+        if validar_contrasena(register_contra):
+            contraseña_valida = True
+        else:
+            console.print("[bold red] Contraseña inválida. Por favor, asegúrese de que tenga al menos 5 caracteres y un número: [/bold red]")
+        
     usuarios[register_usuario] = {
         "username": register_usuario,
         "password": register_contra,
