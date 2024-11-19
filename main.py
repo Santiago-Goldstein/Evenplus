@@ -559,15 +559,3 @@ def menu_usuario(username):
             console.print("[bold red]-------------------------------------[/bold red]\n")
 
 menu_principal()
-
-"""
-Faltantes:
-
- Update de def ver_eventos_pendientes:
- 1 - Ver detalles de eventos
- Memoria de la app (archivo externo json)
- implementarle alguna lógica que te permita ver los días restantes hasta el evento, tarea próximo, usando la fecha actual, en la que interviene el usuario. Ver próximo evento. (Datetime)
- Implementar expresiones regulares en registro. (Requerimientos para el usuario y la contraseña) (patrón)
- Embellecimiento del código, cadena de caracteres (comentarios del código)
- Ver eventos completados
-"""
