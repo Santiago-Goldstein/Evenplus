@@ -358,18 +358,29 @@ def ver_eventos_pendientes(username):
         console.print("[bold red]---------------------------------------[/bold red]\n")
 
 
-def ver_proximos_eventos_lambda(username):
-    console.print(f"\n[bold yellow]Función en desarrollo:[/bold yellow] [bold white]Próximos eventos de {username}[/bold white]")
-    obtener_evento = lambda eventos, tareas: eventos[0] if eventos else (tareas[0] if tareas else None)
-    proximo = obtener_evento(usuarios[username]['eventos'], usuarios[username]['tareas'])
+def ver_proximos_eventos_lambda(username, dias_proximos=7):
+    """Muestra los eventos y tareas próximos a vencer en los próximos 'dias_proximos' días."""
 
-    """ Mostrar eventos próximos """
-    if proximo:
-        console.print(f"\n[bold cyan][1][/bold cyan] [bold white]Próximo evento/tarea: {proximo['titulo']} - {proximo['fecha_limite']} - {proximo['descripcion']}.[/bold white]")
+    # Combina eventos y tareas, ordenados por fecha límite
+    todos_eventos = usuarios[username]['eventos'] + usuarios[username]['tareas']
+    todos_eventos.sort(key=lambda x: datetime.datetime.strptime(x['fecha_limite'], "%d-%m-%Y"))
+
+    # Fecha actual
+    hoy = datetime.date.today()
+
+    # Filtra los eventos próximos
+    proximos_eventos = [evento for evento in todos_eventos if
+                       datetime.datetime.strptime(evento['fecha_limite'], "%d-%m-%Y").date() >= hoy + datetime.timedelta(days=dias_proximos)]
+
+    if proximos_eventos:
+        console.print(f"\n[bold cyan]Eventos y tareas próximos a vencer en los próximos {dias_proximos} días:[/bold cyan]\n")
+        for evento in proximos_eventos:
+            console.print(f"[bold white]- {evento['titulo']} (Vence el {evento['fecha_limite']})[/bold white]")
+            print("------------------------------------------------")
     else:
-        console.print("\n[bold red]---------------------------------------[/bold red]")
-        console.print("[bold red]| No hay eventos o tareas registrados |[/bold red]")
-        console.print("[bold red]---------------------------------------[/bold red]\n")
+        console.print("\n[bold red]---------------------------------------------------------------------[/bold red]")
+        console.print(f"[bold red]| No hay eventos o tareas próximos a vencer en los próximos {dias_proximos} días. |[/bold red]")
+        console.print("[bold red]---------------------------------------------------------------------[/bold red]\n")
 
 
 def ver_historial(username):
